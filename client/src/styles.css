@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+
+
+:root {
+  --esic-blue: #2563EB;
+  --esic-blue-dark: #1d4ed8;
+  --esic-blue-light: #dbeafe;
+  --esic-green: #10B981;
+  --esic-indigo: #4F46E5;
+  --esic-gray-50: #f8fafc;
+  --esic-gray-100: #f1f5f9;
+  --esic-shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --esic-shadow: 0 4px 16px rgba(37,99,235,0.10);
+  --esic-radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--esic-gray-50);
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.material-icons-outlined { font-family: 'Material Icons Outlined'; font-style: normal; }
+
+
+.esic-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--esic-radius);
+  box-shadow: var(--esic-shadow-sm);
+}
+
+.esic-btn-primary {
+  @apply bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors;
+}
+
+.esic-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.esic-section {
+  @apply py-16 px-4;
+}

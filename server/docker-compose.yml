@@ -1,0 +1,109 @@
+version: '3.9'
+
+services:
+  # ── PostgreSQL Database ──────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: esic_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-esic_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-esic_password}
+      POSTGRES_DB: ${POSTGRES_DB:-esic_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-esic_user} -d ${POSTGRES_DB:-esic_db}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - esic_network
+
+  # ── Redis (for future caching/queues) ───────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: esic_redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    networks:
+      - esic_network
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ── NestJS API Backend ───────────────────────────────────────────
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: esic_api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-esic_user}:${POSTGRES_PASSWORD:-esic_password}@db:5432/${POSTGRES_DB:-esic_db}
+      JWT_SECRET: ${JWT_SECRET:-change_this_in_production}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:4200}
+    ports:
+      - '3000:3000'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - esic_network
+    volumes:
+      - api_uploads:/app/uploads
+
+  # ── Angular Frontend ─────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: esic_frontend
+    restart: unless-stopped
+    ports:
+      - '4200:80'
+    depends_on:
+      - api
+    networks:
+      - esic_network
+
+  # ── Nginx Reverse Proxy ──────────────────────────────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: esic_nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - esic_network
+
+volumes:
+  postgres_data:
+    name: esic_postgres_data
+  redis_data:
+    name: esic_redis_data
+  api_uploads:
+    name: esic_api_uploads
+
+networks:
+  esic_network:
+    name: esic_network
+    driver: bridge

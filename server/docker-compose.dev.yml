@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: esic_db_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: esic_user
+      POSTGRES_PASSWORD: esic_password
+      POSTGRES_DB: esic_db
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - esic_dev
+
+  redis:
+    image: redis:7-alpine
+    container_name: esic_redis_dev
+    ports:
+      - '6379:6379'
+    networks:
+      - esic_dev
+
+volumes:
+  postgres_dev_data:
+
+networks:
+  esic_dev:
+    driver: bridge

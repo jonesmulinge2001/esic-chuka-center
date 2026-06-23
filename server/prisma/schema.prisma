@@ -1,0 +1,346 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── ENUMS ────────────────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  STAFF
+  USER
+}
+
+enum ProjectStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  PUBLISHED
+}
+
+enum EventType {
+  WORKSHOP
+  COMPETITION
+  BOOTCAMP
+  WEBINAR
+  OUTREACH
+  OTHER
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  CANCELLED
+  COMPLETED
+}
+
+enum ResourceType {
+  PDF
+  VIDEO
+  LINK
+  DOCUMENT
+  IMAGE
+}
+
+enum ResourceVisibility {
+  PUBLIC
+  REGISTERED
+}
+
+enum PartnerType {
+  INDUSTRY
+  ACADEMIC
+  SPONSOR
+  COLLABORATOR
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+}
+
+enum TeamRole {
+  DIRECTOR
+  COORDINATOR
+  INSTRUCTOR
+  RESEARCHER
+  STAFF
+}
+
+// ─── USERS & AUTH ─────────────────────────────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  role         Role      @default(USER)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  profile      UserProfile?
+  eventRegs    EventRegistration[]
+  submissions  ProjectSubmission[]
+
+  @@map("users")
+}
+
+model UserProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  phone       String?
+  institution String?
+  bio         String?
+  avatarUrl   String?
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+// ─── PROGRAMS ─────────────────────────────────────────────────────
+
+model Program {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  level       String
+  overview    String
+  objectives  String[]
+  activities  String[]
+  imageUrl    String?
+  isPublished Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("programs")
+}
+
+// ─── PROJECTS ─────────────────────────────────────────────────────
+
+model Project {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  description String
+  category    String
+  status      ProjectStatus @default(DRAFT)
+  teamMembers String[]
+  imageUrls   String[]
+  videoUrl    String?
+  tags        String[]
+  isFeatured  Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  attachments    Attachment[]
+  submissions    ProjectSubmission[]
+
+  @@map("projects")
+}
+
+model ProjectSubmission {
+  id          String        @id @default(cuid())
+  userId      String
+  projectId   String?
+  title       String
+  description String
+  category    String
+  teamMembers String[]
+  status      ProjectStatus @default(SUBMITTED)
+  reviewNotes String?
+  submittedAt DateTime      @default(now())
+  reviewedAt  DateTime?
+
+  user        User          @relation(fields: [userId], references: [id])
+  project     Project?      @relation(fields: [projectId], references: [id])
+  attachments Attachment[]
+
+  @@map("project_submissions")
+}
+
+// ─── EVENTS ───────────────────────────────────────────────────────
+
+model Event {
+  id                   String      @id @default(cuid())
+  slug                 String      @unique
+  title                String
+  description          String
+  type                 EventType
+  status               EventStatus @default(DRAFT)
+  location             String?
+  isVirtual            Boolean     @default(false)
+  meetingLink          String?
+  startDate            DateTime
+  endDate              DateTime
+  registrationDeadline DateTime?
+  maxCapacity          Int?
+  imageUrl             String?
+  isFeatured           Boolean     @default(false)
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+
+  registrations        EventRegistration[]
+
+  @@map("events")
+}
+
+model EventRegistration {
+  id           String   @id @default(cuid())
+  eventId      String
+  userId       String
+  registeredAt DateTime @default(now())
+
+  event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@unique([eventId, userId])
+  @@map("event_registrations")
+}
+
+// ─── RESOURCES ────────────────────────────────────────────────────
+
+model Resource {
+  id            String             @id @default(cuid())
+  title         String
+  description   String?
+  type          ResourceType
+  url           String
+  fileSize      Int?
+  category      String
+  visibility    ResourceVisibility @default(PUBLIC)
+  downloadCount Int                @default(0)
+  isPublished   Boolean            @default(false)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  accessLogs    ResourceAccessLog[]
+
+  @@map("resources")
+}
+
+model ResourceAccessLog {
+  id         String   @id @default(cuid())
+  resourceId String
+  userId     String?
+  ipAddress  String?
+  accessedAt DateTime @default(now())
+
+  resource   Resource @relation(fields: [resourceId], references: [id])
+
+  @@map("resource_access_logs")
+}
+
+// ─── PARTNERS ─────────────────────────────────────────────────────
+
+model Partner {
+  id          String      @id @default(cuid())
+  name        String
+  type        PartnerType
+  logoUrl     String?
+  website     String?
+  description String?
+  isActive    Boolean     @default(true)
+  sortOrder   Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("partners")
+}
+
+// ─── GALLERY ──────────────────────────────────────────────────────
+
+model GalleryItem {
+  id           String    @id @default(cuid())
+  title        String
+  description  String?
+  mediaType    MediaType
+  url          String
+  thumbnailUrl String?
+  category     String
+  tags         String[]
+  isPublished  Boolean   @default(false)
+  sortOrder    Int       @default(0)
+  capturedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("gallery_items")
+}
+
+// ─── ANNOUNCEMENTS ────────────────────────────────────────────────
+
+model Announcement {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  content     String
+  excerpt     String?
+  imageUrl    String?
+  isFeatured  Boolean   @default(false)
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("announcements")
+}
+
+// ─── TEAM ─────────────────────────────────────────────────────────
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      TeamRole
+  title     String
+  bio       String?
+  avatarUrl String?
+  email     String?
+  linkedin  String?
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("team_members")
+}
+
+// ─── CONTACT ──────────────────────────────────────────────────────
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
+
+// ─── SHARED ───────────────────────────────────────────────────────
+
+model Attachment {
+  id           String             @id @default(cuid())
+  name         String
+  url          String
+  fileType     String
+  fileSize     Int?
+  projectId    String?
+  submissionId String?
+
+  project      Project?           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  submission   ProjectSubmission? @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@map("attachments")
+}
