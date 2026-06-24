@@ -1,13 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat;
+
+/* ── All @import rules must come first ── */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+
+/* ── Tailwind ── */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
-
-
+/* ── CSS Variables & Global Styles ── */
 :root {
   --esic-blue: #2563EB;
   --esic-blue-dark: #1d4ed8;
@@ -37,8 +39,10 @@ h1, h2, h3, h4, h5 {
   line-height: 1.2;
 }
 
-.material-icons-outlined { font-family: 'Material Icons Outlined'; font-style: normal; }
-
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-style: normal;
+}
 
 .esic-card {
   background: white;

@@ -1,12 +1,41 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { PrismaClient, Role, EventType, EventStatus, ResourceType, ResourceVisibility, PartnerType, MediaType, TeamRole } from '@prisma/client';
+ 
+ 
+ 
+/* eslint-disable prettier/prettier */
+import 'dotenv/config';
+import {
+  PrismaClient,
+  Role,
+  EventType,
+  EventStatus,
+  ResourceType,
+  ResourceVisibility,
+  PartnerType,
+  MediaType,
+  TeamRole,
+} from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const prisma = new PrismaClient();
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  throw new Error('DATABASE_URL environment variable is not defined');
+}
+
+const pool = new Pool({
+  connectionString,
+});
+
+const adapter = new PrismaPg(pool);
+
+const prisma = new PrismaClient({
+  adapter,
+});
 
 async function main() {
   console.log('🌱 Seeding ESIC STEM LAB database...');
