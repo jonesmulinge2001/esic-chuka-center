@@ -181,10 +181,10 @@ import { RouterLink } from '@angular/router';
                   <!-- Left Content -->
                   <div class="space-y-6 animate-fade-in-up">
                       <!-- Badge -->
-                      <div class="inline-flex items-center gap-2 bg-[#facc15]/10 border border-[#facc15]/30 text-[#facc15] text-[11px] font-bold tracking-[0.15em] uppercase px-4 py-2 rounded-full">
+                      <!-- <div class="inline-flex items-center gap-2 bg-[#facc15]/10 border border-[#facc15]/30 text-[#facc15] text-[11px] font-bold tracking-[0.15em] uppercase px-4 py-2 rounded-full">
                           <span class="w-2 h-2 bg-[#facc15] rounded-full animate-pulse"></span>
                           Early STEM Program 2026
-                      </div>
+                      </div> -->
                       
                       <h1 class="text-[clamp(42px,6vw,72px)] font-black text-white leading-[1.05]">
                           Explore.<br />
@@ -655,7 +655,7 @@ export class EarlyStemComponent implements OnInit, AfterViewInit {
       {
           title: 'Fun Coding',
           icon: 'code',
-          image: '/images/esic-coding.jpeg',
+          image: '/images/esic-fc.jpeg',
           iconColor: '#16a34a',
           iconBg: '#f0fdf4',
           desc: 'Scratch programming and beginner coding games that teach logic through creativity',
@@ -679,7 +679,7 @@ export class EarlyStemComponent implements OnInit, AfterViewInit {
       {
           title: 'Digital Creativity',
           icon: 'brush',
-          image: '/images/esic-creativity.jpeg',
+          image: '/images/esic-dc.jpeg',
           iconColor: '#a16207',
           iconBg: '#fef9c3',
           desc: 'Animation, digital storytelling, and design that blend art and technology',
@@ -687,7 +687,7 @@ export class EarlyStemComponent implements OnInit, AfterViewInit {
       {
           title: 'STEM Challenges',
           icon: 'emoji_events',
-          image: '/images/esic-challenges.jpeg',
+          image: '/images/esic-stc.jpeg',
           iconColor: '#be185d',
           iconBg: '#fce7f3',
           desc: 'Team competitions and puzzles that build collaboration, grit, and a love of winning',

@@ -160,10 +160,10 @@ import { RouterLink } from '@angular/router';
                     <!-- Left Content -->
                     <div class="space-y-6 animate-fade-in-up">
                         <!-- Badge -->
-                        <div class="inline-flex items-center gap-2 bg-[#fbd01d]/10 border border-[#fbd01d]/30 text-[#fbd01d] text-[11px] font-bold tracking-[0.15em] uppercase px-4 py-2 rounded-full">
+                        <!-- <div class="inline-flex items-center gap-2 bg-[#fbd01d]/10 border border-[#fbd01d]/30 text-[#fbd01d] text-[11px] font-bold tracking-[0.15em] uppercase px-4 py-2 rounded-full">
                             <span class="w-2 h-2 bg-[#fbd01d] rounded-full animate-pulse"></span>
                             Next-Gen Engineering Program 2026
-                        </div>
+                        </div> -->
                         
                         <h1 class="text-[clamp(42px,6vw,72px)] font-black text-white leading-[1.05]">
                             Design the<br />
@@ -235,7 +235,7 @@ import { RouterLink } from '@angular/router';
                             <div class="glass-effect rounded-2xl p-6 max-w-[380px] w-full shadow-2xl">
                                 <div class="relative bg-gradient-to-br from-blue-600/30 to-cyan-400/20 rounded-xl h-[220px] flex items-center justify-center overflow-hidden">
                                     <div class="absolute inset-0 bg-gradient-to-t from-[#001a5e]/50 to-transparent"></div>
-                                    <img src="/images/advanced-eng-hero.svg" 
+                                    <img src="/images/esic-advanced.jpeg" 
                                          alt="Advanced Engineering" 
                                          class="relative z-10 max-h-[170px] w-auto object-contain animate-float1"
                                          (error)="heroImgError = true" />
