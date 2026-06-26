@@ -15,24 +15,30 @@ import { AuthService } from '../../core/services/auth.service';
       z-index: 50;
     }
 
-    header {
-      animation: slideDown .3s ease;
-      background: white;
-      border-bottom: 1px solid #e5e8f0;
-      box-shadow: 0 1px 3px rgba(0,20,80,.06), 0 1px 8px rgba(0,20,80,.04);
-    }
-
+    /* ── Keyframes (can't be done with Tailwind) ── */
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-6px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes mobileSlide {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Dropdown animation */
+    /* ── Animation classes ── */
+    .animate-slide-down {
+      animation: slideDown .3s ease;
+    }
+    .animate-mobile-slide {
+      animation: mobileSlide .2s ease;
+    }
+
+    /* ── Dropdown & hover states ── */
     .dd-menu {
       transform: translateY(-4px);
       transition: opacity .18s ease, transform .18s ease, visibility .18s;
     }
-    .group\/dd:hover .dd-menu {
+    .group-hover\\:dd-show .dd-menu {
       transform: translateY(0) !important;
     }
 
@@ -48,20 +54,19 @@ import { AuthService } from '../../core/services/auth.service';
     .chevron {
       transition: transform .2s ease;
     }
-    .group\/dd:hover .chevron {
+    .group-hover\\:dd-show .chevron {
       transform: rotate(180deg);
     }
 
-    /* Logo icon lift */
+    /* ── Hover transitions ── */
     .logo-icon {
       transition: box-shadow .2s, transform .2s;
     }
-    .group\/logo:hover .logo-icon {
+    .group-hover\\:logo:hover .logo-icon {
       box-shadow: 0 4px 12px rgba(0,51,153,.3);
       transform: translateY(-1px);
     }
 
-    /* Primary button lift */
     .btn-primary {
       transition: background .15s, box-shadow .15s, transform .15s;
     }
@@ -70,7 +75,6 @@ import { AuthService } from '../../core/services/auth.service';
       box-shadow: 0 4px 14px rgba(0,51,153,.32) !important;
     }
 
-    /* Icon buttons scale */
     .icon-btn {
       transition: background .15s, color .15s, transform .15s;
     }
@@ -78,32 +82,34 @@ import { AuthService } from '../../core/services/auth.service';
       transform: scale(1.08);
     }
 
-    /* Mobile menu slide */
-    .mobile-menu {
-      animation: mobileSlide .2s ease;
-    }
-    @keyframes mobileSlide {
-      from { opacity: 0; transform: translateY(-4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    /* ── Reduced motion ── */
     @media (prefers-reduced-motion: reduce) {
-      *, header, .dd-menu, .mobile-menu { animation: none !important; transition: none !important; }
+      *, header, .dd-menu, .mobile-menu { 
+        animation: none !important; 
+        transition: none !important; 
+      }
     }
   `],
   template: `
-    <header>
+    <header class="bg-white border-b border-[#e5e8f0] shadow-[0_1px_3px_rgba(0,20,80,.06),0_1px_8px_rgba(0,20,80,.04)] animate-slide-down">
       <div class="max-w-7xl mx-auto px-4 sm:px-5 lg:px-8">
         <div class="flex items-center justify-between h-14">
 
           <!-- ── Logo ── -->
           <a routerLink="/" class="group/logo flex items-center gap-2.5 flex-shrink-0">
-            <div class="logo-icon w-[34px] h-[34px]
-                        bg-gradient-to-br from-[#003399] to-[#1a4fbf]
-                        rounded-[9px] flex items-center justify-center
-                        shadow-[0_2px_6px_rgba(0,51,153,.25)]">
-              <span class="text-white font-black text-[11px] tracking-wide leading-none">ES</span>
-            </div>
+          <div class="logo-icon w-[34px] h-[34px]
+            bg-gradient-to-br from-[#003399] to-[#1a4fbf]
+            rounded-[9px] flex items-center justify-center
+            shadow-[0_2px_6px_rgba(0,51,153,.25)]
+            transition-all duration-200 overflow-hidden">
+
+  <img
+    src="/images/esic-logo.jpeg"
+    alt="ESIC Logo"
+    class="w-full h-full "
+  />
+
+</div>
             <div class="hidden sm:block">
               <div class="font-extrabold text-[11.5px] text-[#001e5c] leading-none tracking-[.06em] uppercase">ESIC</div>
               <div class="text-[9px] text-slate-400 leading-tight mt-0.5">Electronics &amp; Software Innovation Center</div>
@@ -215,7 +221,7 @@ import { AuthService } from '../../core/services/auth.service';
 
         <!-- ── Mobile Menu ── -->
         @if (menuOpen()) {
-          <nav class="mobile-menu lg:hidden border-t border-slate-100 py-2 pb-3 flex flex-col gap-0.5">
+          <nav class="animate-mobile-slide lg:hidden border-t border-slate-100 py-2 pb-3 flex flex-col gap-0.5">
             @for (link of navLinks; track link.label) {
               @if (!link.children) {
                 <a [routerLink]="link.path" (click)="menuOpen.set(false)"
@@ -289,7 +295,7 @@ export class NavbarComponent {
       children: [
         { label: 'Early STEM',           path: '/programs/early-stem' },
         { label: 'Junior STEM',          path: '/programs/junior-stem' },
-        { label: 'Advanced Engineering', path: '/programs/advanced-engineering' },
+        { label: 'Advanced Engineering', path: '/programs/advanced-stem' },
         { label: 'Industrial Training',  path: '/programs/lab-industrial-training' },
       ],
     },

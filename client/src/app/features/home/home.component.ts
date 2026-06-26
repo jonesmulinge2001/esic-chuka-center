@@ -10,567 +10,123 @@ import { ApiService } from '../../core/services/api.service';
   selector: 'app-home',
   imports: [RouterLink, DatePipe],
   styles: [`
-    /* ════════════════════════════════════════
-       KEYFRAMES
-    ════════════════════════════════════════ */
+    /* ── Keyframes (can't be done with Tailwind) ── */
     @keyframes heroFloat {
       0%, 100% { transform: translateY(0) rotate(0deg); }
-      50%      { transform: translateY(-12px) rotate(2deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
     }
     @keyframes orbPulse {
       0%, 100% { transform: scale(1); opacity: .7; }
-      50%      { transform: scale(1.15); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 1; }
     }
     @keyframes shimmer {
-      0%   { background-position: 200% center; }
+      0% { background-position: 200% center; }
       100% { background-position: -200% center; }
     }
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(32px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
     @keyframes cardPop {
       from { opacity: 0; transform: translateY(60px) scale(.92); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
     @keyframes rocketFloat {
       0%, 100% { transform: translateY(0) rotate(-30deg); }
-      50%      { transform: translateY(-18px) rotate(-30deg); }
+      50% { transform: translateY(-18px) rotate(-30deg); }
     }
     @keyframes glow {
       0%, 100% { box-shadow: 0 0 0 0 rgba(245,197,24,.35); }
-      50%      { box-shadow: 0 0 0 12px rgba(245,197,24,0); }
+      50% { box-shadow: 0 0 0 12px rgba(245,197,24,0); }
     }
     @keyframes starSpin { to { transform: rotate(360deg); } }
     @keyframes dotPulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: .6; transform: scale(1.3); }
+      50% { opacity: .6; transform: scale(1.3); }
     }
     @keyframes feFloat {
       0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
+      50% { transform: translateY(-8px); }
     }
 
-    /* ════════════════════════════════════════
-       HERO
-    ════════════════════════════════════════ */
-    .hero-section {
+    /* ── Utility classes (complex CSS that Tailwind can't handle) ── */
+    .bg-hero-gradient {
       background: linear-gradient(135deg, #001e5c 0%, #003399 50%, #0a4fd6 100%);
-      min-height: 540px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      padding: 40px 0;
     }
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(70px);
-      pointer-events: none;
-    }
-    .orb-1 {
-      width: 320px; height: 320px;
-      background: rgba(245,197,24,.12);
-      top: -80px; right: 8%;
-      animation: orbPulse 4s ease-in-out infinite;
-    }
-    .orb-2 {
-      width: 220px; height: 220px;
-      background: rgba(10,79,214,.28);
-      bottom: -60px; left: 5%;
-      animation: orbPulse 5s ease-in-out infinite .8s;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(245,197,24,.15);
-      border: 1px solid rgba(245,197,24,.35);
-      color: #f5c518;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-      animation: slideUp .6s ease .1s both;
-    }
-    .badge-dot {
-      width: 7px; height: 7px;
-      background: #f5c518;
-      border-radius: 50%;
-      animation: dotPulse 1.5s ease-in-out infinite;
-    }
-
-    .hero-heading {
-      font-size: clamp(36px, 5vw, 60px);
-      font-weight: 900;
-      color: #fff;
-      line-height: 1.05;
-      margin-bottom: 16px;
-      animation: slideUp .6s ease .2s both;
-    }
-    .heading-gold {
-      background: linear-gradient(90deg, #f5c518, #ffd94d, #f5c518);
-      background-size: 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 3s linear infinite;
-    }
-    .hero-sub {
-      color: #93c5fd;
-      font-size: 15px;
-      line-height: 1.65;
-      margin-bottom: 20px;
-      animation: slideUp .6s ease .3s both;
-    }
-    .hero-tagline {
-      color: #f5c518;
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 28px;
-      animation: slideUp .6s ease .35s both;
-    }
-    .hero-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      animation: slideUp .6s ease .4s both;
-    }
-    .btn-explore {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #f5c518;
-      color: #001e5c;
-      font-weight: 800;
-      font-size: 13px;
-      padding: 12px 24px;
-      border-radius: 12px;
-      text-decoration: none;
-      box-shadow: 0 4px 16px rgba(245,197,24,.35);
-      animation: glow 2.5s ease-in-out infinite;
-      transition: transform .2s, box-shadow .2s;
-    }
-    .btn-explore:hover { transform: translateY(-2px) scale(1.03); }
-    .btn-partner {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,.1);
-      border: 1.5px solid rgba(255,255,255,.25);
-      color: #fff;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 12px 24px;
-      border-radius: 12px;
-      text-decoration: none;
-      transition: transform .2s, background .2s;
-    }
-    .btn-partner:hover { transform: translateY(-2px); background: rgba(255,255,255,.18); }
-
-    .trust-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 28px;
-      animation: slideUp .6s ease .5s both;
-    }
-    .trust-item { display: flex; align-items: center; gap: 8px; }
-    .trust-icon { color: #f5c518; }
-    .trust-label { font-weight: 700; color: #fff; font-size: 11px; }
-    .trust-sub   { color: #93c5fd; font-size: 10px; }
-
-    /* Hero visual panel */
-    .hero-visual { position: relative; animation: slideUp .6s ease .3s both; }
-    .hero-kit-card {
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 20px;
-      padding: 24px;
-      backdrop-filter: blur(12px);
-    }
-    .kit-img-area {
-      background: linear-gradient(135deg, rgba(99,153,229,.2), rgba(99,70,229,.25));
-      border-radius: 14px;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-    .kit-img-area img {
-      max-height: 150px;
-      width: auto;
-      object-fit: contain;
-      animation: heroFloat 3s ease-in-out infinite;
-    }
-    .kit-badge-circle {
-      position: absolute;
-      top: 10px; right: 10px;
+    .bg-cta-gradient {
       background: #003399;
-      border: 2.5px solid #f5c518;
-      border-radius: 50%;
-      width: 62px; height: 62px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
     }
-    .kit-strip {
-      background: #f5c518;
-      color: #001e5c;
-      border-radius: 8px;
-      padding: 8px 14px;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .08em;
-    }
-    .float-chip {
-      position: absolute;
-      background: #fff;
-      border-radius: 10px;
-      padding: 7px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #001e5c;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 14px rgba(0,30,92,.18);
-    }
-    .chip-1 { top: -14px; left: -18px; animation: feFloat 3.5s ease-in-out infinite .5s; }
-    .chip-2 { bottom: -6px; left: -22px; animation: feFloat 4s ease-in-out infinite 1s; }
-    .rocket-deco {
-      position: absolute;
-      top: 18px; right: -8px;
-      animation: rocketFloat 2.5s ease-in-out infinite;
-      font-size: 32px;
-      color: #f5c518;
-      transform: rotate(-30deg);
-    }
-
-    /* ════════════════════════════════════════
-       PROGRAM CARDS
-    ════════════════════════════════════════ */
-    .programs-section { background: #fff; padding: 56px 0; }
-
-    .section-eyebrow {
-      display: inline-block;
-      color: #003399;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .section-title {
-      font-size: clamp(24px, 3.5vw, 38px);
-      font-weight: 900;
-      color: #001e5c;
-      margin-bottom: 6px;
-    }
-    .section-sub { color: #64748b; font-size: 14px; }
-
-    .prog-card {
-      border-radius: 20px;
-      border: 1.5px solid #dce6f7;
+    .bg-card-gradient {
       background: linear-gradient(160deg, #fff 70%, #f0f6ff);
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      min-height: 440px;
+    }
+    .bg-video-overlay {
+      background: linear-gradient(135deg, rgba(0,30,92,0.6), rgba(10,79,214,0.5));
+    }
+    .bg-accent-amber::before { content: ''; background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .bg-accent-blue::before { content: ''; background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .bg-accent-green::before { content: ''; background: linear-gradient(90deg, #10b981, #34d399); }
+    .bg-accent-purple::before { content: ''; background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+    .bg-accent-orange::before { content: ''; background: linear-gradient(90deg, #f97316, #fb923c); }
+    .bg-accent-indigo::before { content: ''; background: linear-gradient(90deg, #6366f1, #818cf8); }
+
+    .animate-hero-float { animation: heroFloat 3s ease-in-out infinite; }
+    .animate-orb-pulse-1 { animation: orbPulse 4s ease-in-out infinite; }
+    .animate-orb-pulse-2 { animation: orbPulse 5s ease-in-out infinite .8s; }
+    .animate-shimmer { background-size: 200%; animation: shimmer 3s linear infinite; }
+    .animate-slide-up-1 { animation: slideUp .6s ease .1s both; }
+    .animate-slide-up-2 { animation: slideUp .6s ease .2s both; }
+    .animate-slide-up-3 { animation: slideUp .6s ease .3s both; }
+    .animate-slide-up-4 { animation: slideUp .6s ease .35s both; }
+    .animate-slide-up-5 { animation: slideUp .6s ease .4s both; }
+    .animate-slide-up-6 { animation: slideUp .6s ease .5s both; }
+    .animate-card-pop { animation: cardPop .6s cubic-bezier(.34,1.56,.64,1) both; }
+    .animate-rocket-float { animation: rocketFloat 2.5s ease-in-out infinite; }
+    .animate-glow { animation: glow 2.5s ease-in-out infinite; }
+    .animate-star-spin { animation: starSpin 6s linear infinite; }
+    .animate-dot-pulse { animation: dotPulse 1.5s ease-in-out infinite; }
+    .animate-fe-float-1 { animation: feFloat 3.5s ease-in-out infinite .5s; }
+    .animate-fe-float-2 { animation: feFloat 4s ease-in-out infinite 1s; }
+
+    .filter-blur-70 { filter: blur(70px); }
+    .filter-blur-60 { filter: blur(60px); }
+
+    /* ── Card hover transitions ── */
+    .card-hover {
       opacity: 0;
       transform: translateY(60px);
       transition: transform .3s cubic-bezier(.34,1.56,.64,1),
                   box-shadow .3s,
                   border-color .3s;
     }
-    .prog-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      border-radius: 20px 20px 0 0;
+    .card-hover.visible {
+      animation: cardPop .6s cubic-bezier(.34,1.56,.64,1) both;
     }
-    .prog-card.visible { animation: cardPop .6s cubic-bezier(.34,1.56,.64,1) both; }
-    .prog-card:hover {
+    .card-hover:hover {
       transform: translateY(-6px) scale(1.01);
       box-shadow: 0 20px 40px rgba(0,30,92,.12);
       border-color: #b4ccf7;
     }
 
-    /* Accent top strips */
-    .accent-amber::before  { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-    .accent-blue::before   { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
-    .accent-green::before  { background: linear-gradient(90deg, #10b981, #34d399); }
-    .accent-purple::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
-    .accent-orange::before { background: linear-gradient(90deg, #f97316, #fb923c); }
-    .accent-indigo::before { background: linear-gradient(90deg, #6366f1, #818cf8); }
-
-    .card-icon-wrap {
-      width: 52px; height: 52px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px;
-      transition: transform .3s;
-    }
-    .prog-card:hover .card-icon-wrap { transform: scale(1.12) rotate(5deg); }
-
-    .card-title-text { font-size: 16px; font-weight: 800; color: #173b78; margin-bottom: 2px; }
-    .card-age-label  {
-      font-size: 10px;
-      font-weight: 700;
-      color: #94a3b8;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    /* Product image area */
-    .card-img-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 130px;
-      overflow: hidden;
-      border-radius: 12px;
-      background: #f8fafc;
-      margin-bottom: 14px;
-    }
-    .card-img-wrap img {
-      max-height: 100%;
-      width: auto;
-      object-fit: contain;
-      transition: transform .5s ease;
-    }
-    .prog-card:hover .card-img-wrap img { transform: scale(1.07); }
-
-    .card-items-list { list-style: none; flex: 1; margin-bottom: 16px; }
-    .card-items-list li {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: #475569;
-      padding: 3px 0;
-    }
-    .item-check { color: #003399; font-size: 14px; }
-
-    .card-cta-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 800;
-      color: #003399;
-      transition: gap .2s;
-    }
-    .prog-card:hover .card-cta-row { gap: 10px; }
-    .cta-arrow { transition: transform .2s; }
-    .prog-card:hover .cta-arrow { transform: translateX(4px); }
-
-    /* ════════════════════════════════════════
-       DARK BANNER
-    ════════════════════════════════════════ */
-    .dark-banner { background: #001e5c; padding: 56px 0; }
-
-    .pill-badge {
-      display: inline-block;
-      background: #f5c518;
-      color: #001e5c;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-    }
-    .banner-prog-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7px;
-      margin-bottom: 18px;
-    }
-    .banner-prog-item { display: flex; align-items: center; gap: 6px; color: #93c5fd; font-size: 11px; }
-    .prog-check { color: #f5c518; font-size: 13px; }
-
-    .btn-view-all {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #fff;
-      color: #001e5c;
-      font-weight: 800;
-      font-size: 12px;
-      padding: 10px 22px;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: background .2s, transform .2s;
-    }
-    .btn-view-all:hover { background: #eff4ff; transform: translateY(-1px); }
-
-    .video-panel {
-      border-radius: 16px;
-      overflow: hidden;
-      background: #0a1a45;
-      aspect-ratio: 16 / 9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      border: 1px solid rgba(255,255,255,.1);
-      cursor: pointer;
-      transition: transform .25s;
-    }
-    .video-panel:hover { transform: scale(1.02); }
-    .play-circle {
-      width: 56px; height: 56px;
-      background: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 24px rgba(0,0,0,.3);
-      position: relative;
-      z-index: 1;
-      transition: transform .2s;
-    }
-    .video-panel:hover .play-circle { transform: scale(1.12); }
-
-    /* ════════════════════════════════════════
-       STATS
-    ════════════════════════════════════════ */
-    .stats-bar { background: #002580; padding: 40px 0; }
-    .stat-item {
-      text-align: center;
-      padding: 16px 24px;
-      border-right: 1px solid rgba(255,255,255,.1);
-    }
-    .stat-item:last-child { border-right: none; }
-    .stat-val { font-size: 32px; font-weight: 900; color: #fff; }
-    .stat-lbl { color: #93c5fd; font-size: 11px; font-weight: 500; margin-top: 2px; }
-
-    /* ════════════════════════════════════════
-       EVENTS
-    ════════════════════════════════════════ */
-    .events-section { background: #f8faff; padding: 56px 0; }
-
-    .event-card {
-      background: #fff;
-      border-radius: 16px;
-      border: 1px solid #e2e8f7;
-      overflow: hidden;
-      text-decoration: none;
-      display: block;
+    .event-card-hover {
       transition: transform .25s, box-shadow .25s;
     }
-    .event-card:hover {
+    .event-card-hover:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 32px rgba(0,30,92,.10);
     }
-    .event-body { padding: 16px; }
-    .event-badge {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 20px;
-    }
-    .event-title-text {
-      font-weight: 800;
-      color: #001e5c;
-      font-size: 14px;
-      margin-bottom: 6px;
-      line-height: 1.3;
-    }
-    .event-desc-text {
-      font-size: 12px;
-      color: #64748b;
-      line-height: 1.5;
-      margin-bottom: 12px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+
+    .prog-card-strip {
+      position: relative;
       overflow: hidden;
     }
-    .event-meta { border-top: 1px solid #f1f5f9; padding-top: 10px; }
-    .meta-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #94a3b8;
-      padding: 3px 0;
+    .prog-card-strip::before {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      border-radius: 20px 20px 0 0;
     }
 
-    /* ════════════════════════════════════════
-       PROJECTS
-    ════════════════════════════════════════ */
-    .projects-section { background: #fff; padding: 56px 0; }
-
-    /* ════════════════════════════════════════
-       PARTNERS
-    ════════════════════════════════════════ */
-    .partners-section {
-      background: #f8faff;
-      padding: 48px 0;
-      border-top: 1px solid #e2e8f0;
-    }
-
-    /* ════════════════════════════════════════
-       FINAL CTA
-    ════════════════════════════════════════ */
-    .cta-section { background: #003399; padding: 64px 0; text-align: center; }
-    .cta-star {
-      display: inline-block;
-      animation: starSpin 6s linear infinite;
-      color: #f5c518;
-      font-size: 26px;
-      margin-bottom: 12px;
-    }
-    .btn-join {
-      display: inline-block;
-      background: #f5c518;
-      color: #001e5c;
-      font-weight: 900;
-      font-size: 14px;
-      padding: 14px 36px;
-      border-radius: 12px;
-      text-decoration: none;
-      transition: background .2s, transform .2s;
-      box-shadow: 0 4px 16px rgba(245,197,24,.35);
-    }
-    .btn-join:hover { background: #ffd94d; transform: translateY(-2px); }
-    .btn-touch {
-      display: inline-block;
-      border: 2px solid rgba(255,255,255,.35);
-      color: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      padding: 14px 36px;
-      border-radius: 12px;
-      text-decoration: none;
-      transition: background .2s, transform .2s;
-    }
-    .btn-touch:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); }
-
-    /* ════════════════════════════════════════
-       REDUCED MOTION
-    ════════════════════════════════════════ */
+    /* ── Reduced motion ── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation: none !important;
@@ -579,54 +135,56 @@ import { ApiService } from '../../core/services/api.service';
     }
   `],
   template: `
-
     <!-- ══════════════════════════════════════════════════════
          HERO
     ══════════════════════════════════════════════════════ -->
-    <section class="hero-section">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
+    <section class="bg-hero-gradient min-h-[540px] relative overflow-hidden flex items-center py-10">
+      <!-- Orb decorations -->
+      <div class="absolute w-[320px] h-[320px] rounded-full filter-blur-70 pointer-events-none bg-yellow-400/12 -top-20 right-[8%] animate-orb-pulse-1"></div>
+      <div class="absolute w-[220px] h-[220px] rounded-full filter-blur-70 pointer-events-none bg-blue-600/28 -bottom-14 left-[5%] animate-orb-pulse-2"></div>
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="grid lg:grid-cols-2 gap-10 items-center">
 
           <!-- Left copy -->
           <div>
-            <div class="hero-badge">
-              <span class="badge-dot"></span>
+            <!-- <div class="inline-flex items-center gap-2 bg-yellow-400/15 border border-yellow-400/35 text-yellow-400 text-[11px] font-bold tracking-[0.08em] uppercase px-3 py-1.5 rounded-full mb-4 animate-slide-up-1">
+              <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-dot-pulse"></span>
               Kenya's #1 STEM Innovation Center
-            </div>
+            </div> -->
 
-            <h1 class="hero-heading">
+            <h1 class="text-[clamp(36px,5vw,60px)] font-black text-white leading-[1.05] mb-4 animate-slide-up-2">
               Discover<br>
-              <span class="heading-gold">STEM With ESIC</span>
+              <span class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent animate-shimmer">STEM With ESIC</span>
             </h1>
 
-            <p class="hero-sub">
+            <p class="text-blue-200 text-[15px] leading-relaxed mb-5 animate-slide-up-3">
               Electronics &amp; Software Innovation Center — designing hands-on kits,
               robotics, and AI tools that make science impossible to ignore.
             </p>
 
-            <p class="hero-tagline">✦ Learn by Building. Innovate by Doing.</p>
+            <p class="text-yellow-400 text-[18px] font-extrabold mb-7 animate-slide-up-4">
+              ✦ Learn by Building. Innovate by Doing.
+            </p>
 
-            <div class="hero-btns">
-              <a routerLink="/programs" class="btn-explore">
+            <div class="flex flex-wrap gap-3 animate-slide-up-5">
+              <a routerLink="/programs" class="inline-flex items-center gap-2 bg-yellow-400 text-[#001e5c] font-extrabold text-[13px] px-6 py-3 rounded-xl no-underline shadow-[0_4px_16px_rgba(245,197,24,.35)] animate-glow transition-transform duration-200 hover:scale-103 hover:-translate-y-0.5">
                 <span class="material-icons-outlined text-base">science</span>
                 Explore Programs
               </a>
-              <a routerLink="/contact" class="btn-partner">
+              <a routerLink="/contact" class="inline-flex items-center gap-2 bg-white/10 border border-white/25 text-white font-bold text-[13px] px-6 py-3 rounded-xl no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/20">
                 <span class="material-icons-outlined text-base">handshake</span>
                 Partner With Us
               </a>
             </div>
 
-            <div class="trust-row">
+            <div class="flex flex-wrap gap-5 mt-7 animate-slide-up-6">
               @for (badge of trustBadges; track badge.label) {
-                <div class="trust-item">
-                  <span class="material-icons-outlined trust-icon text-base">{{ badge.icon }}</span>
+                <div class="flex items-center gap-2">
+                  <span class="material-icons-outlined text-yellow-400 text-base">{{ badge.icon }}</span>
                   <div>
-                    <div class="trust-label">{{ badge.label }}</div>
-                    <div class="trust-sub">{{ badge.sub }}</div>
+                    <div class="font-bold text-white text-[11px]">{{ badge.label }}</div>
+                    <div class="text-blue-200 text-[10px]">{{ badge.sub }}</div>
                   </div>
                 </div>
               }
@@ -634,39 +192,42 @@ import { ApiService } from '../../core/services/api.service';
           </div>
 
           <!-- Right: hero visual panel -->
-          <div class="hero-visual hidden lg:flex justify-center items-center">
+          <div class="relative flex justify-center items-center hidden lg:flex animate-slide-up-3">
             <div class="relative w-full max-w-md">
 
               <!-- Floating chips -->
-              <div class="float-chip chip-1">
-                <span class="material-icons-outlined text-[#f5c518] text-base">bolt</span>
+              <div class="absolute top-[-14px] left-[-18px] bg-white rounded-xl px-3 py-1.5 text-[11px] font-bold text-[#001e5c] flex items-center gap-1.5 shadow-[0_4px_14px_rgba(0,30,92,.18)] animate-fe-float-1">
+                <span class="material-icons-outlined text-yellow-500 text-base">bolt</span>
                 Circuit Kit
               </div>
-              <div class="float-chip chip-2">
+              <div class="absolute bottom-[-6px] left-[-22px] bg-white rounded-xl px-3 py-1.5 text-[11px] font-bold text-[#001e5c] flex items-center gap-1.5 shadow-[0_4px_14px_rgba(0,30,92,.18)] animate-fe-float-2">
                 <span class="material-icons-outlined text-[#003399] text-base">smart_toy</span>
                 Robotics Ready!
               </div>
 
               <!-- Rocket decoration -->
-              <span class="material-icons-outlined rocket-deco">rocket_launch</span>
+              <span class="absolute top-4 right-[-8px] text-[32px] text-yellow-400 rotate-[-30deg] animate-rocket-float material-icons-outlined">rocket_launch</span>
 
               <!-- Main card -->
-              <div class="hero-kit-card">
-                <div class="kit-img-area">
+              <div class="bg-white/10 border border-white/20 rounded-2xl p-6 backdrop-blur-xl">
+                <div class="bg-gradient-to-br from-blue-400/20 to-indigo-400/25 rounded-xl h-[200px] flex items-center justify-center mb-4 relative overflow-hidden">
                   <img
                     src="/images/esic-hero.jpeg"
                     alt="ESIC STEM Learning"
                     loading="lazy"
+                    class="max-h-[150px] w-auto object-contain animate-hero-float"
                   />
                   <p class="absolute bottom-2 inset-x-0 text-center text-white/80 text-xs font-medium">
                     Hands-on STEM Learning
                   </p>
-                  <div class="kit-badge-circle">
-                    <span class="text-[#f5c518] font-black text-base leading-none">61+</span>
+                  <div class="absolute top-2.5 right-2.5 bg-[#003399] border-2.5 border-yellow-400 rounded-full w-[62px] h-[62px] flex flex-col items-center justify-center text-center">
+                    <span class="text-yellow-400 font-black text-base leading-none">61+</span>
                     <span class="text-white text-[8px] leading-tight px-1 text-center">Experiments Included</span>
                   </div>
                 </div>
-                <div class="kit-strip">⚡ STEP BY STEP SCIENCE</div>
+                <div class="bg-yellow-400 text-[#001e5c] rounded-lg px-3.5 py-2 text-center text-[11px] font-black tracking-[0.08em]">
+                  ⚡ STEP BY STEP SCIENCE
+                </div>
               </div>
 
             </div>
@@ -679,13 +240,13 @@ import { ApiService } from '../../core/services/api.service';
     <!-- ══════════════════════════════════════════════════════
          PROGRAM CARDS
     ══════════════════════════════════════════════════════ -->
-    <section class="programs-section">
+    <section class="bg-white py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="text-center mb-10">
-          <div class="section-eyebrow">✦ Our Programs</div>
-          <h2 class="section-title">STEM for Every Age &amp; Level</h2>
-          <p class="section-sub">From curious 6-year-olds to university engineers — a kit for every learner.</p>
+          <div class="text-[#003399] text-[11px] font-bold tracking-[0.1em] uppercase mb-2">✦ Our Programs</div>
+          <h2 class="text-[clamp(24px,3.5vw,38px)] font-black text-[#001e5c] mb-1.5">STEM for Every Age &amp; Level</h2>
+          <p class="text-[#64748b] text-[14px]">From curious 6-year-olds to university engineers — a kit for every learner.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -693,44 +254,45 @@ import { ApiService } from '../../core/services/api.service';
             <a
               [routerLink]="['/programs', prog.slug]"
               #cardRef
-              class="prog-card group"
-              [class]="'prog-card accent-' + prog.accent"
+              class="rounded-2xl border border-[#dce6f7] bg-card-gradient p-6 prog-card-strip flex flex-col min-h-[440px] no-underline card-hover"
+              [class]="'bg-accent-' + prog.accent"
               [attr.data-index]="i"
             >
               <!-- Icon -->
-              <div class="card-icon-wrap" [style.background]="prog.iconBg">
+              <div class="w-[52px] h-[52px] rounded-xl flex items-center justify-center mb-2.5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-5" [style.background]="prog.iconBg">
                 <span class="material-icons-outlined text-[28px]" [style.color]="prog.iconColor">
                   {{ prog.icon }}
                 </span>
               </div>
 
-              <div class="card-title-text">{{ prog.title }}</div>
-              <div class="card-age-label">{{ prog.age }}</div>
+              <div class="text-[16px] font-extrabold text-[#173b78] mb-0.5">{{ prog.title }}</div>
+              <div class="text-[10px] font-bold text-[#94a3b8] tracking-[0.05em] uppercase mb-2.5">{{ prog.age }}</div>
 
               <!-- Product image -->
-              <div class="card-img-wrap">
+              <div class="flex justify-center items-center h-[130px] overflow-hidden rounded-xl bg-[#f8fafc] mb-3.5">
                 <img
                   [src]="prog.image"
                   [alt]="prog.title"
                   loading="lazy"
+                  class="max-h-full w-auto object-contain transition-transform duration-500 group-hover:scale-110"
                   (error)="prog.image = '/images/placeholder.jpg'"
                 />
               </div>
 
               <!-- Features -->
-              <ul class="card-items-list">
+              <ul class="list-none flex-1 mb-4">
                 @for (item of prog.items; track item) {
-                  <li>
-                    <span class="material-icons-outlined item-check">check_circle</span>
+                  <li class="flex items-center gap-1.5 text-[12px] text-[#475569] py-0.5">
+                    <span class="material-icons-outlined text-[#003399] text-sm">check_circle</span>
                     {{ item }}
                   </li>
                 }
               </ul>
 
               <!-- CTA -->
-              <div class="card-cta-row">
+              <div class="flex items-center gap-1.5 text-[12px] font-extrabold text-[#003399] transition-all duration-200 group-hover:gap-2.5">
                 {{ prog.cta }}
-                <span class="material-icons-outlined cta-arrow text-base">arrow_forward</span>
+                <span class="material-icons-outlined text-base transition-transform duration-200 group-hover:translate-x-1">arrow_forward</span>
               </div>
             </a>
           }
@@ -741,14 +303,14 @@ import { ApiService } from '../../core/services/api.service';
     <!-- ══════════════════════════════════════════════════════
          FEATURED PRODUCT BANNER
     ══════════════════════════════════════════════════════ -->
-    <section class="dark-banner">
+    <section class="bg-[#001e5c] py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-3 gap-10 items-center">
 
           <!-- Product visuals -->
           <div class="flex items-center justify-center lg:justify-start gap-4">
             <div class="w-24 h-24 bg-white/10 rounded-2xl border border-white/15 flex items-center justify-center">
-              <span class="material-icons-outlined text-[#f5c518] text-5xl">science</span>
+              <span class="material-icons-outlined text-yellow-400 text-5xl">science</span>
             </div>
             <div class="w-20 h-20 bg-white rounded-xl shadow-xl flex items-center justify-center">
               <span class="material-icons-outlined text-[#003399] text-4xl">auto_stories</span>
@@ -757,26 +319,26 @@ import { ApiService } from '../../core/services/api.service';
 
           <!-- Program info -->
           <div>
-            <div class="pill-badge">Explore Our Programs</div>
+            <span class="inline-block bg-yellow-400 text-[#001e5c] text-[9px] font-black tracking-[0.1em] uppercase px-3 py-1 rounded-full mb-2.5">Explore Our Programs</span>
             <h2 class="text-2xl font-black text-white mb-4">STEM Learning Programs</h2>
-            <div class="banner-prog-grid">
+            <div class="grid grid-cols-2 gap-1.5 mb-4">
               @for (program of featuredPrograms.slice(0, 6); track program) {
-                <div class="banner-prog-item">
-                  <span class="material-icons-outlined prog-check text-sm">check_circle</span>
+                <div class="flex items-center gap-1.5 text-blue-200 text-[11px]">
+                  <span class="material-icons-outlined text-yellow-400 text-sm">check_circle</span>
                   {{ program }}
                 </div>
               }
             </div>
-            <a routerLink="/programs" class="btn-view-all">
+            <a routerLink="/programs" class="inline-flex items-center gap-1.5 bg-white text-[#001e5c] font-extrabold text-[12px] px-[22px] py-2.5 rounded-xl no-underline transition-all duration-200 hover:bg-[#eff4ff] hover:-translate-y-0.5">
               View All Programs
               <span class="material-icons-outlined text-base">arrow_forward</span>
             </a>
           </div>
 
           <!-- Video panel -->
-          <div class="video-panel hidden lg:flex">
-            <div class="absolute inset-0 bg-gradient-to-br from-[#001e5c]/60 to-[#0a4fd6]/50"></div>
-            <div class="play-circle">
+          <div class="relative rounded-2xl overflow-hidden bg-[#0a1a45] aspect-video flex items-center justify-center border border-white/10 cursor-pointer transition-transform duration-200 hover:scale-102 hidden lg:flex">
+            <div class="absolute inset-0 bg-video-overlay"></div>
+            <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-[0_8px_24px_rgba(0,0,0,.3)] relative z-10 transition-transform duration-200 hover:scale-110">
               <span class="material-icons-outlined text-[#003399] text-3xl ml-1">play_arrow</span>
             </div>
             <div class="absolute bottom-3 inset-x-0 text-center text-white text-xs font-bold">
@@ -791,16 +353,16 @@ import { ApiService } from '../../core/services/api.service';
     <!-- ══════════════════════════════════════════════════════
          STATS BAR
     ══════════════════════════════════════════════════════ -->
-    <section class="stats-bar">
+    <section class="bg-[#002580] py-10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4">
           @for (stat of stats; track stat.label) {
-            <div class="stat-item">
+            <div class="text-center px-6 py-4 border-r border-white/10 last:border-r-0">
               <div class="flex items-center justify-center gap-2 mb-1">
-                <span class="material-icons-outlined text-[#f5c518] text-2xl">{{ stat.icon }}</span>
-                <span class="stat-val">{{ stat.value }}</span>
+                <span class="material-icons-outlined text-yellow-400 text-2xl">{{ stat.icon }}</span>
+                <span class="text-[32px] font-black text-white">{{ stat.value }}</span>
               </div>
-              <div class="stat-lbl">{{ stat.label }}</div>
+              <div class="text-blue-200 text-[11px] font-medium mt-0.5">{{ stat.label }}</div>
             </div>
           }
         </div>
@@ -810,14 +372,14 @@ import { ApiService } from '../../core/services/api.service';
     <!-- ══════════════════════════════════════════════════════
          UPCOMING EVENTS
     ══════════════════════════════════════════════════════ -->
-    <section class="events-section">
+    <section class="bg-[#f8faff] py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex items-end justify-between mb-8">
           <div>
-            <div class="section-eyebrow">✦ What's On</div>
-            <h2 class="section-title" style="font-size: 26px">Upcoming Events</h2>
-            <p class="section-sub mt-1">Workshops, bootcamps, and competitions</p>
+            <div class="text-[#003399] text-[11px] font-bold tracking-[0.1em] uppercase mb-2">✦ What's On</div>
+            <h2 class="text-[26px] font-black text-[#001e5c] mb-1.5">Upcoming Events</h2>
+            <p class="text-[#64748b] text-[14px] mt-1">Workshops, bootcamps, and competitions</p>
           </div>
           <a routerLink="/events"
              class="hidden sm:flex items-center gap-1 text-[#003399] font-bold text-sm hover:underline">
@@ -834,29 +396,28 @@ import { ApiService } from '../../core/services/api.service';
         } @else {
           <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
             @for (event of events(); track event.id) {
-              <a [routerLink]="['/events', event.slug]" class="event-card">
+              <a [routerLink]="['/events', event.slug]" class="bg-white rounded-2xl border border-[#e2e8f7] overflow-hidden no-underline event-card-hover">
                 <div class="h-1.5 w-full" [class]="eventStripe(event.type)"></div>
-                <div class="event-body">
+                <div class="p-4">
                   <div class="flex items-center gap-2 mb-3 flex-wrap">
-                    <span class="event-badge" [class]="eventBadge(event.type)">
+                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full" [class]="eventBadge(event.type)">
                       {{ event.type }}
                     </span>
                     @if (event.isFeatured) {
-                      <span class="event-badge"
-                            style="background:#fef9c3;color:#92400e">
+                      <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800">
                         Featured
                       </span>
                     }
                   </div>
-                  <div class="event-title-text">{{ event.title }}</div>
-                  <div class="event-desc-text">{{ event.description }}</div>
-                  <div class="event-meta">
-                    <div class="meta-row">
+                  <div class="font-extrabold text-[#001e5c] text-[14px] mb-1.5 leading-tight">{{ event.title }}</div>
+                  <div class="text-[12px] text-[#64748b] leading-relaxed mb-3 line-clamp-2">{{ event.description }}</div>
+                  <div class="border-t border-[#f1f5f9] pt-2.5">
+                    <div class="flex items-center gap-1.5 text-[11px] text-[#94a3b8] py-0.5">
                       <span class="material-icons-outlined text-[#003399] text-sm">calendar_today</span>
                       {{ event.startDate | date:'EEE, MMM d, y' }}
                     </div>
                     @if (event.location) {
-                      <div class="meta-row">
+                      <div class="flex items-center gap-1.5 text-[11px] text-[#94a3b8] py-0.5">
                         <span class="material-icons-outlined text-[#003399] text-sm">location_on</span>
                         {{ event.location }}
                       </div>
@@ -874,13 +435,13 @@ import { ApiService } from '../../core/services/api.service';
          FEATURED PROJECTS
     ══════════════════════════════════════════════════════ -->
     @if (projects().length > 0) {
-      <section class="projects-section">
+      <section class="bg-white py-14">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div class="flex items-end justify-between mb-8">
             <div>
-              <div class="section-eyebrow">✦ Innovation Showcase</div>
-              <h2 class="section-title" style="font-size: 26px">Featured Projects &amp; Research</h2>
+              <div class="text-[#003399] text-[11px] font-bold tracking-[0.1em] uppercase mb-2">✦ Innovation Showcase</div>
+              <h2 class="text-[26px] font-black text-[#001e5c]">Featured Projects &amp; Research</h2>
             </div>
             <a routerLink="/projects"
                class="hidden sm:flex items-center gap-1 text-[#003399] font-bold text-sm hover:underline">
@@ -892,16 +453,15 @@ import { ApiService } from '../../core/services/api.service';
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             @for (proj of projects(); track proj.id) {
               <a [routerLink]="['/projects', proj.slug]"
-                 class="event-card group">
-                <div class="h-36 bg-gradient-to-br from-[#dbeafe] to-[#e0e7ff] flex items-center justify-center">
+                 class="bg-white rounded-2xl border border-[#e2e8f7] overflow-hidden no-underline event-card-hover group">
+                <div class="h-36 bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
                   <span class="material-icons-outlined text-[#003399]/40 text-6xl">biotech</span>
                 </div>
                 <div class="p-5">
-                  <span class="text-xs bg-[#dbeafe] text-[#003399] px-2.5 py-0.5 rounded-full font-semibold">
+                  <span class="text-xs bg-blue-50 text-[#003399] px-2.5 py-0.5 rounded-full font-semibold">
                     {{ proj.category }}
                   </span>
-                  <h3 class="font-black text-[#001e5c] text-sm mt-2 mb-1
-                             group-hover:text-[#003399] transition-colors">
+                  <h3 class="font-black text-[#001e5c] text-sm mt-2 mb-1 group-hover:text-[#003399] transition-colors">
                     {{ proj.title }}
                   </h3>
                   <p class="text-xs text-gray-500 line-clamp-2">{{ proj.description }}</p>
@@ -918,7 +478,7 @@ import { ApiService } from '../../core/services/api.service';
          PARTNERS
     ══════════════════════════════════════════════════════ -->
     @if (partners().length > 0) {
-      <section class="partners-section">
+      <section class="bg-[#f8faff] py-12 border-t border-[#e2e8f0]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p class="text-center text-xs font-black uppercase tracking-widest text-gray-400 mb-8">
             Our Partners &amp; Collaborators
@@ -940,19 +500,23 @@ import { ApiService } from '../../core/services/api.service';
     <!-- ══════════════════════════════════════════════════════
          FINAL CTA
     ══════════════════════════════════════════════════════ -->
-    <section class="cta-section">
+    <section class="bg-cta-gradient py-16 text-center">
       <div class="max-w-2xl mx-auto px-4">
-        <div class="cta-star">✦</div>
+        <span class="inline-block text-yellow-400 text-[26px] mb-3 animate-star-spin material-icons-outlined">stars</span>
         <h2 class="text-3xl lg:text-4xl font-black text-white mb-3">
           Ready to Innovate with ESIC?
         </h2>
-        <p class="text-[#93c5fd] text-sm mb-8 leading-relaxed">
+        <p class="text-blue-200 text-sm mb-8 leading-relaxed">
           Join a growing community of STEM innovators, educators, and researchers at Chuka University.
           Get access to programs, resources, and events — built for Kenya's learners.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a routerLink="/auth/register" class="btn-join">Join ESIC — It's Free</a>
-          <a routerLink="/contact"       class="btn-touch">Get in Touch</a>
+          <a routerLink="/auth/register" class="inline-block bg-yellow-400 text-[#001e5c] font-extrabold text-[14px] px-9 py-3.5 rounded-xl no-underline shadow-[0_4px_16px_rgba(245,197,24,.35)] transition-all duration-200 hover:bg-yellow-300 hover:-translate-y-0.5">
+            Join ESIC — It's Free
+          </a>
+          <a routerLink="/contact" class="inline-block border-2 border-white/35 text-white font-bold text-[14px] px-9 py-3.5 rounded-xl no-underline transition-all duration-200 hover:bg-white/10 hover:-translate-y-0.5">
+            Get in Touch
+          </a>
         </div>
       </div>
     </section>
