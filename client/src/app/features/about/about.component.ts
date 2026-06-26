@@ -7,7 +7,7 @@ import { ApiService } from '../../core/services/api.service';
 
 @Component({
   selector: 'app-about',
-  imports: [RouterLink],
+  imports: [],
   styles: [`
     /* ── Keyframes ── */
     @keyframes fadeInUp {
@@ -170,7 +170,7 @@ import { ApiService } from '../../core/services/api.service';
       display: flex; justify-content: center; flex-wrap: wrap; gap: 36px;
       border-top: 1px solid rgba(255,255,255,.12); padding-top: 28px;
     }
-    .hero-stat-val { font-size: 28px; font-weight: 900; color: #f5c518; }
+    .hero-stat-val { font-size: 28px; font-weight: 900; color: #fff; }
     .hero-stat-lbl { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 2px; }
     .scroll-indicator {
       position: absolute; bottom: 28px; left: 50%;
@@ -322,10 +322,10 @@ import { ApiService } from '../../core/services/api.service';
       <div class="hero-orb orb-teal"></div>
 
       <div class="hero-content">
-        <div class="hero-eyebrow">
+        <!-- <div class="hero-eyebrow">
           <span class="eyebrow-dot"></span>
           Chuka University · Tharaka Nithi, Kenya
-        </div>
+        </div> -->
         <h1 class="hero-heading">
           ESIC<br>
           <span class="heading-gold">STEM LAB</span>

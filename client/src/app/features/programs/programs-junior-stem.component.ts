@@ -157,11 +157,7 @@ import {
           <div class="grid lg:grid-cols-2 gap-10 items-center">
             <!-- Left -->
             <div>
-              <div class="inline-flex items-center gap-2 bg-yellow-400/12 border border-yellow-400/35 text-yellow-200 text-[11px] font-bold tracking-[0.12em] uppercase px-3.5 py-1.5 rounded-full mb-4">
-                <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-dot-pulse"></div>
-                <span class="material-icons text-sm">psychology</span>
-                Junior STEM · Ages 13–17
-              </div>
+              
               <h1 class="text-[clamp(38px,5.5vw,66px)] font-black text-white leading-[1] mb-4 tracking-[-0.02em]">
                 Innovate.<br />Build.<br />
                 <span class="bg-heading-accent animate-shimmer">Lead.</span>
@@ -231,8 +227,8 @@ import {
                     }
                     <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent"></div>
                   </div>
-                  <div class="bg-kit-strip-gradient border border-yellow-400/25 text-white rounded-xl px-3.5 py-2 text-center text-[11px] font-black tracking-[0.06em] flex items-center justify-center gap-1.5">
-                    <span class="material-icons text-sm text-white">bolt</span>
+                  <div class="bg-gradient-to-r from-[#facc15] to-[#facc15] border border-yellow-400/25 text-black rounded-xl px-3.5 py-2 text-center text-[11px] font-black tracking-[0.06em] flex items-center justify-center gap-1.5">
+                    <span class="material-icons text-sm text-black">bolt</span>
                     JUNIOR STEM PROGRAM — AGES 13–17
                   </div>
                 </div>
