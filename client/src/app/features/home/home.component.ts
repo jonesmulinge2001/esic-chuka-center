@@ -126,6 +126,17 @@ import { ApiService } from '../../core/services/api.service';
       border-radius: 20px 20px 0 0;
     }
 
+    /* ── What We Do: sector chip hover ── */
+    .sector-chip {
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, border-color .25s, background .25s;
+    }
+    .sector-chip:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,30,92,.10);
+      border-color: #b4ccf7;
+      background: #f0f6ff;
+    }
+
     /* ── Reduced motion ── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -148,19 +159,18 @@ import { ApiService } from '../../core/services/api.service';
 
           <!-- Left copy -->
           <div>
-            <!-- <div class="inline-flex items-center gap-2 bg-yellow-400/15 border border-yellow-400/35 text-yellow-400 text-[11px] font-bold tracking-[0.08em] uppercase px-3 py-1.5 rounded-full mb-4 animate-slide-up-1">
-              <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-dot-pulse"></span>
-              Kenya's #1 STEM Innovation Center
-            </div> -->
+            
 
             <h1 class="text-[clamp(36px,5vw,60px)] font-black text-white leading-[1.05] mb-4 animate-slide-up-2">
-              Discover<br>
-              <span class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent animate-shimmer">STEM With ESIC</span>
+              Building Minds.<br>
+              <span class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent animate-shimmer">Creating Innovators.</span>
             </h1>
 
             <p class="text-blue-200 text-[15px] leading-relaxed mb-5 animate-slide-up-3">
-              Electronics &amp; Software Innovation Center — designing hands-on kits,
-              robotics, and AI tools that make science impossible to ignore.
+              We design, develop, and manufacture innovative STEM learning systems that inspire
+              curiosity, creativity, and problem-solving. From elementary science kits to
+              university engineering trainers, ESIC empowers learners through hands-on,
+              experiential education.
             </p>
 
             <p class="text-yellow-400 text-[18px] font-extrabold mb-7 animate-slide-up-4">
@@ -170,7 +180,7 @@ import { ApiService } from '../../core/services/api.service';
             <div class="flex flex-wrap gap-3 animate-slide-up-5">
               <a routerLink="/programs" class="inline-flex items-center gap-2 bg-yellow-400 text-[#001e5c] font-extrabold text-[13px] px-6 py-3 rounded-xl no-underline shadow-[0_4px_16px_rgba(245,197,24,.35)] animate-glow transition-transform duration-200 hover:scale-103 hover:-translate-y-0.5">
                 <span class="material-icons-outlined text-base">science</span>
-                Explore Programs
+                Explore STEM Kits
               </a>
               <a routerLink="/contact" class="inline-flex items-center gap-2 bg-white/10 border border-white/25 text-white font-bold text-[13px] px-6 py-3 rounded-xl no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/20">
                 <span class="material-icons-outlined text-base">handshake</span>
@@ -234,6 +244,41 @@ import { ApiService } from '../../core/services/api.service';
           </div>
 
         </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         WHAT WE DO
+    ══════════════════════════════════════════════════════ -->
+    <section class="bg-[#f8faff] py-14 border-b border-[#e2e8f0]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <div class="text-[#003399] text-[11px] font-bold tracking-[0.1em] uppercase mb-2">✦ What We Do</div>
+            <h2 class="text-[clamp(24px,3.5vw,34px)] font-black text-[#001e5c] mb-4 leading-tight">
+              Transforming STEM Education Through Innovation
+            </h2>
+            <p class="text-[#475569] text-[14px] leading-relaxed">
+              At ESIC, we believe students learn best by doing. Every product we develop combines
+              physical learning kits, structured experiment manuals, digital resources, and teacher
+              support to create engaging learning experiences.
+            </p>
+          </div>
+
+          <div>
+            <div class="text-[11px] font-bold text-[#94a3b8] tracking-[0.08em] uppercase mb-3">Our Solutions Serve</div>
+            <div class="grid grid-cols-2 gap-3">
+              @for (sector of sectorsServed; track sector.label) {
+                <div class="sector-chip flex items-center gap-2.5 bg-white border border-[#e2e8f7] rounded-xl px-4 py-3">
+                  <span class="material-icons-outlined text-[#003399] text-lg">{{ sector.icon }}</span>
+                  <span class="text-[13px] font-bold text-[#173b78]">{{ sector.label }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -538,6 +583,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
     { icon: 'menu_book',   label: 'Step-by-Step Manuals', sub: 'Clear guidance'    },
     { icon: 'verified',    label: 'Safe & Durable',       sub: 'Quality materials' },
     { icon: 'play_circle', label: 'Video Tutorials',      sub: 'Included free'     },
+  ];
+
+  sectorsServed = [
+    { icon: 'school',               label: 'Primary Schools'          },
+    { icon: 'menu_book',            label: 'Junior Secondary Schools' },
+    { icon: 'auto_stories',         label: 'Senior Secondary Schools' },
+    { icon: 'engineering',          label: 'TVET Institutions'        },
+    { icon: 'account_balance',      label: 'Universities'             },
+    { icon: 'biotech',              label: 'Research Laboratories'    },
+    { icon: 'lightbulb',            label: 'Innovation Hubs'          },
   ];
 
   featuredPrograms = [

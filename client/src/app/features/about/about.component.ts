@@ -187,6 +187,17 @@ import { ApiService } from '../../core/services/api.service';
       animation: scrollDot 2s ease-in-out infinite;
     }
 
+    /* ── Who We Are ── */
+    .expertise-chip {
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, border-color .25s, background .25s;
+    }
+    .expertise-chip:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,30,92,.10);
+      border-color: #b4ccf7;
+      background: #f0f6ff;
+    }
+
     /* ── Split section (Mission / Vision) ── */
     .split-img {
       position: relative; overflow: hidden;
@@ -211,7 +222,7 @@ import { ApiService } from '../../core/services/api.service';
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* ── Objectives ── */
+    /* ── Objectives / Values ── */
     .objectives-section {
       position: relative; overflow: hidden;
     }
@@ -359,6 +370,50 @@ import { ApiService } from '../../core/services/api.service';
       </div>
     </section>
 
+    <!-- ══ WHO WE ARE ══ -->
+    <section class="py-20 px-4 lg:px-8 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+          <div class="reveal-up" #revealRef>
+            <span class="inline-block text-[11px] font-bold tracking-widest uppercase
+                         bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full mb-4">
+              Who We Are
+            </span>
+            <h2 class="text-4xl lg:text-5xl font-black text-[#001e5c] leading-tight mb-5">About ESIC</h2>
+            <p class="text-slate-600 text-base leading-relaxed mb-4">
+              The Electronics &amp; Software Innovation Center (ESIC) is a research, design, and
+              manufacturing company dedicated to advancing STEM education through innovative
+              educational technologies.
+            </p>
+            <p class="text-slate-600 text-base leading-relaxed mb-4">
+              We develop affordable, practical, and curriculum-aligned learning systems that enable
+              students to discover science, engineering, technology, and innovation through
+              experimentation.
+            </p>
+            <p class="text-slate-600 text-base leading-relaxed">
+              Our interdisciplinary expertise spans electronics, software engineering, robotics,
+              automation, artificial intelligence, renewable energy, embedded systems, and
+              engineering education.
+            </p>
+          </div>
+
+          <div class="reveal-up" #revealRef>
+            <div class="text-[11px] font-bold text-[#94a3b8] tracking-[0.08em] uppercase mb-3">Our Expertise</div>
+            <div class="grid grid-cols-2 gap-3">
+              @for (area of expertiseAreas; track area.label) {
+                <div class="expertise-chip flex items-center gap-2.5 bg-white border border-[#e2e8f7] rounded-xl px-4 py-3">
+                  <span class="material-icons-outlined text-[#003399] text-lg">{{ area.icon }}</span>
+                  <span class="text-[13px] font-bold text-[#173b78]">{{ area.label }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ══ MISSION — split layout, image slides from LEFT ══ -->
     <section class="py-20 px-4 lg:px-8" style="background: linear-gradient(to bottom, #f8fafc, #fff)">
       <div class="max-w-7xl mx-auto">
@@ -429,10 +484,11 @@ import { ApiService } from '../../core/services/api.service';
           <div class="bg-white rounded-2xl border border-blue-100 p-8 lg:p-10
                       shadow-[0_4px_24px_rgba(0,30,92,.06)]">
             <p class="text-slate-700 text-base lg:text-lg leading-relaxed">
-              To provide accessible, high-quality STEM education and innovation opportunities that empower
-              students, educators, and communities across Kenya and beyond. Through our
-              <span class="text-blue-700 font-bold">ESIC</span>, we bridge the gap between theoretical
-              knowledge and practical application — one experiment, one project, one builder at a time.
+              To accelerate experiential STEM learning by designing innovative educational equipment,
+              digital learning resources, and engineering solutions that make science and technology
+              accessible to every learner. Through our <span class="text-blue-700 font-bold">ESIC</span>,
+              we bridge the gap between theoretical knowledge and practical application — one experiment,
+              one project, one builder at a time.
             </p>
           </div>
         </div>
@@ -506,8 +562,8 @@ import { ApiService } from '../../core/services/api.service';
           <div class="bg-slate-50 rounded-2xl border border-blue-100 p-8 lg:p-10
                       shadow-[0_4px_24px_rgba(0,30,92,.05)]">
             <p class="text-slate-700 text-base lg:text-lg leading-relaxed">
-              To be the leading center for STEM innovation and technology education in the Mount Kenya region,
-              producing world-class engineers and innovators who solve Africa's challenges. Our
+              To become Africa's leading developer of innovative STEM learning technologies that
+              inspire the next generation of scientists, engineers, inventors, and entrepreneurs. Our
               <span class="text-blue-700 font-bold">ESIC</span> serves as a hub for cutting-edge research
               and technological advancement that positions Kenya at the forefront of African innovation.
             </p>
@@ -517,7 +573,7 @@ import { ApiService } from '../../core/services/api.service';
       </div>
     </section>
 
-    <!-- ══ OBJECTIVES ══ -->
+    <!-- ══ CORE VALUES ══ -->
     <section class="objectives-section py-20">
       <div class="obj-bg"></div>
       <div class="obj-overlay"></div>
@@ -526,19 +582,19 @@ import { ApiService } from '../../core/services/api.service';
         <div class="text-center mb-12 reveal-up" #revealRef>
           <span class="inline-block text-[11px] font-bold tracking-widest uppercase
                        bg-emerald-500/20 text-emerald-300 px-4 py-1.5 rounded-full mb-3 border border-emerald-500/25">
-            Our Goals
+            What Drives Us
           </span>
-          <h2 class="text-3xl lg:text-4xl font-black text-white mb-2">Core Objectives</h2>
-          <p class="text-white/60 text-sm">Strategic pillars guiding our STEM education initiatives</p>
+          <h2 class="text-3xl lg:text-4xl font-black text-white mb-2">Core Values</h2>
+          <p class="text-white/60 text-sm">The principles guiding everything we design, build, and teach</p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-3.5">
-          @for (obj of objectives; track obj; let i = $index) {
+        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+          @for (value of coreValues; track value.label; let i = $index) {
             <div class="obj-card reveal-up-child" #revealRef [attr.data-index]="i">
               <div class="obj-check-wrap flex-shrink-0">
-                <span class="material-icons-outlined text-white text-base">check</span>
+                <span class="material-icons-outlined text-white text-base">{{ value.icon }}</span>
               </div>
-              <span class="text-white/85 text-[13px] leading-relaxed">{{ obj }}</span>
+              <span class="text-white/85 text-[13px] font-bold leading-relaxed">{{ value.label }}</span>
             </div>
           }
         </div>
@@ -640,6 +696,28 @@ export class AboutComponent implements OnInit, AfterViewInit {
     { value: '10+',   label: 'Learning systems' },
   ];
 
+  expertiseAreas = [
+    { icon: 'bolt',                 label: 'Electronics'            },
+    { icon: 'code',                 label: 'Software Engineering'   },
+    { icon: 'smart_toy',            label: 'Robotics'               },
+    { icon: 'precision_manufacturing', label: 'Automation'          },
+    { icon: 'psychology',           label: 'Artificial Intelligence'},
+    { icon: 'solar_power',          label: 'Renewable Energy'       },
+    { icon: 'memory',               label: 'Embedded Systems'       },
+    { icon: 'school',               label: 'Engineering Education'  },
+  ];
+
+  coreValues = [
+    { icon: 'lightbulb',            label: 'Innovation'             },
+    { icon: 'construction',         label: 'Hands-on Learning'      },
+    { icon: 'verified',             label: 'Quality'                },
+    { icon: 'accessibility_new',    label: 'Accessibility'          },
+    { icon: 'shield',               label: 'Integrity'              },
+    { icon: 'groups',               label: 'Collaboration'          },
+    { icon: 'eco',                  label: 'Sustainability'         },
+    { icon: 'auto_stories',         label: 'Continuous Learning'    },
+  ];
+
   missionCards = [
     {
       image: '/images/esic-b1.jpeg',
@@ -724,17 +802,6 @@ export class AboutComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  objectives = [
-    'Deliver high-quality STEM education from early childhood to advanced university level',
-    'Foster a culture of innovation, research, and entrepreneurship across all programmes',
-    'Build strategic partnerships with industry leaders and academic institutions',
-    'Provide hands-on laboratory and industrial training experiences for all students',
-    'Promote gender equality and full inclusivity in STEM fields through targeted initiatives',
-    'Support student project development, innovation showcases, and competition entries',
-    'Develop STEM resources and curriculum materials tailored for Kenyan educators',
-    'Engage communities through outreach, STEM awareness, and county-level programmes',
-  ];
-
   ngOnInit() {
     this.api.get<any[]>('/team').subscribe({
       next: data => this.team.set(data),
@@ -751,7 +818,7 @@ export class AboutComponent implements OnInit, AfterViewInit {
         const el = entry.target as HTMLElement;
         const idx = parseInt(el.getAttribute('data-index') || '0');
 
-        // Stagger indexed children (objectives, team cards, bullet points)
+        // Stagger indexed children (values, team cards, bullet points)
         const delay = idx > 0 ? idx * 70 : 0;
         setTimeout(() => el.classList.add('in'), delay);
         observer.unobserve(el);

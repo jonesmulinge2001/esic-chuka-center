@@ -293,9 +293,9 @@ export class NavbarComponent {
     {
       label: 'Products',
       children: [
-        { label: 'Early STEM',           path: '/programs/early-stem' },
-        { label: 'Junior STEM',          path: '/programs/junior-stem' },
-        { label: 'Advanced Engineering', path: '/programs/advanced-stem' },
+        { label: 'STEM Learning Kits',path: '/programs/early-stem' },
+        { label: 'Engineering Laboratory Trainers',path: '/programs/junior-stem' },
+        { label: 'STEM Classroom Solutions', path: '/programs/advanced-stem' },
         { label: 'Industrial Training',  path: '/programs/lab-industrial-training' },
       ],
     },
