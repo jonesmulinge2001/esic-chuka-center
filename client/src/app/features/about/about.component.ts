@@ -3,11 +3,13 @@ import {
   AfterViewInit, ElementRef, ViewChildren, QueryList
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 
 @Component({
   selector: 'app-about',
-  imports: [],
+  standalone: true,
+  imports: [RouterLink, CommonModule],
   styles: [`
     /* ── Keyframes ── */
     @keyframes fadeInUp {
@@ -27,8 +29,8 @@ import { ApiService } from '../../core/services/api.service';
       50%     { transform: translateY(-14px); }
     }
     @keyframes heroPulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(245,197,24,.3); }
-      50%     { box-shadow: 0 0 0 12px rgba(245,197,24,0); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(251, 208, 29, .3); }
+      50%     { box-shadow: 0 0 0 12px rgba(251, 208, 29, 0); }
     }
     @keyframes objPulse {
       0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,.25); }
@@ -38,9 +40,19 @@ import { ApiService } from '../../core/services/api.service';
       0%,100% { opacity: 1; transform: scale(1); }
       50%     { opacity: .5; transform: scale(1.4); }
     }
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(3deg); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-2deg); }
+    }
+    @keyframes rotateSlow {
+      to { transform: rotate(360deg); }
+    }
 
     /* ── Scroll-reveal base states ── */
-    /* Images slide in from their edge */
     .reveal-left {
       opacity: 0;
       transform: translateX(-60px) scale(.97);
@@ -53,19 +65,16 @@ import { ApiService } from '../../core/services/api.service';
       transition: opacity .75s cubic-bezier(.22,1,.36,1),
                   transform .75s cubic-bezier(.22,1,.36,1);
     }
-    /* Text panels fade up */
     .reveal-up {
       opacity: 0;
       transform: translateY(40px);
       transition: opacity .65s ease .1s, transform .65s ease .1s;
     }
-    /* Staggered children */
     .reveal-up-child {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity .55s ease, transform .55s ease;
     }
-    /* Visible state shared */
     .reveal-left.in,
     .reveal-right.in,
     .reveal-up.in,
@@ -80,7 +89,7 @@ import { ApiService } from '../../core/services/api.service';
     }
     .hero-bg {
       position: absolute; inset: 0;
-      background: url('/images/esic-bg.jpeg') center/cover fixed;
+      background: linear-gradient(135deg, #001a5e 0%, #012a8a 50%, #094ed3 100%);
     }
     .hero-overlay {
       position: absolute; inset: 0;
@@ -95,7 +104,7 @@ import { ApiService } from '../../core/services/api.service';
     }
     .orb-gold {
       width: 380px; height: 380px;
-      background: rgba(245,197,24,.09);
+      background: rgba(251, 208, 29, .09);
       top: -80px; right: 6%;
       animation: orbFloat 5s ease-in-out infinite;
     }
@@ -123,7 +132,7 @@ import { ApiService } from '../../core/services/api.service';
       margin-bottom: 22px;
     }
     .eyebrow-dot {
-      width: 6px; height: 6px; background: #f5c518; border-radius: 50%;
+      width: 6px; height: 6px; background: #fbd01d; border-radius: 50%;
       animation: dotBounce 1.6s ease-in-out infinite;
     }
     .hero-heading {
@@ -133,7 +142,7 @@ import { ApiService } from '../../core/services/api.service';
       letter-spacing: -.02em;
     }
     .heading-gold {
-      background: linear-gradient(90deg, #f5c518, #ffd94d, #f5c518);
+      background: linear-gradient(90deg, #fbd01d, #fdd835, #fbd01d);
       background-size: 200%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -147,15 +156,15 @@ import { ApiService } from '../../core/services/api.service';
     .hero-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
     .btn-white {
       display: inline-flex; align-items: center; gap: 8px;
-      background: #fff; color: #001e5c;
+      background: #fbd01d; color: #001a5e;
       font-weight: 800; font-size: 13px;
       padding: 13px 28px; border-radius: 30px;
       border: none; cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0,0,0,.18);
+      box-shadow: 0 6px 20px rgba(251, 208, 29, .3);
       animation: heroPulse 2.5s ease-in-out infinite;
       transition: transform .2s, box-shadow .2s;
     }
-    .btn-white:hover { transform: translateY(-2px) scale(1.03); }
+    .btn-white:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 8px 30px rgba(251, 208, 29, .4); }
     .btn-ghost {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(255,255,255,.1); color: #fff;
@@ -194,8 +203,8 @@ import { ApiService } from '../../core/services/api.service';
     .expertise-chip:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 24px rgba(0,30,92,.10);
-      border-color: #b4ccf7;
-      background: #f0f6ff;
+      border-color: #fbd01d;
+      background: #fef9c3;
     }
 
     /* ── Split section (Mission / Vision) ── */
@@ -228,7 +237,7 @@ import { ApiService } from '../../core/services/api.service';
     }
     .obj-bg {
       position: absolute; inset: 0;
-      background: url('/images/esic-bg.jpeg') center/cover;
+      background: linear-gradient(135deg, #001a5e 0%, #012a8a 50%, #094ed3 100%);
     }
     .obj-overlay {
       position: absolute; inset: 0;
@@ -250,7 +259,7 @@ import { ApiService } from '../../core/services/api.service';
     .obj-card:hover { background: rgba(255,255,255,.13); transform: translateY(-2px); }
     .obj-check-wrap {
       flex-shrink: 0; width: 34px; height: 34px;
-      background: linear-gradient(135deg, #10b981, #2563eb);
+      background: linear-gradient(135deg, #fbd01d, #f59e0b);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       animation: objPulse 3s ease-in-out infinite;
@@ -267,7 +276,7 @@ import { ApiService } from '../../core/services/api.service';
     .team-card::before {
       content: ''; position: absolute; inset: -1px;
       border-radius: 20px;
-      background: linear-gradient(135deg, #2563eb, #10b981, #4f46e5);
+      background: linear-gradient(135deg, #001a5e, #fbd01d, #094ed3);
       opacity: 0; transition: opacity .35s; z-index: 0;
     }
     .team-card::after {
@@ -283,7 +292,7 @@ import { ApiService } from '../../core/services/api.service';
     }
     .avatar-ring::before {
       content: ''; position: absolute; inset: -3px; border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #10b981, #4f46e5);
+      background: linear-gradient(135deg, #001a5e, #fbd01d, #094ed3);
       opacity: .55; transition: opacity .35s;
     }
     .team-card:hover .avatar-ring::before { opacity: 1; }
@@ -304,7 +313,7 @@ import { ApiService } from '../../core/services/api.service';
     .cta-section { position: relative; overflow: hidden; }
     .cta-bg {
       position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1920&q=80') center/cover;
+      background: linear-gradient(135deg, #001a5e 0%, #012a8a 50%, #094ed3 100%);
     }
     .cta-overlay {
       position: absolute; inset: 0;
@@ -312,10 +321,51 @@ import { ApiService } from '../../core/services/api.service';
     }
     .cta-eyebrow {
       display: inline-block;
-      background: rgba(245,197,24,.14); color: #f5c518;
-      border: 1px solid rgba(245,197,24,.28);
+      background: rgba(251, 208, 29, .14); color: #fbd01d;
+      border: 1px solid rgba(251, 208, 29, .28);
       font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
       padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
+    }
+
+    /* ── ESIC Values Animation ── */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .value-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      transition: all .3s ease;
+    }
+    .value-item:hover {
+      background: rgba(251, 208, 29, 0.1);
+      border-color: #fbd01d;
+      transform: translateY(-4px);
+    }
+    .value-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .divider-gradient {
+      height: 4px;
+      background: linear-gradient(90deg, #001a5e, #094ed3, #fbd01d);
+      width: 80px;
+      margin: 1rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero-stats { gap: 20px; }
+      .hero-stat-val { font-size: 22px; }
+      .split-img img { min-height: 250px; }
+      .value-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* ── Reduced motion ── */
@@ -333,10 +383,10 @@ import { ApiService } from '../../core/services/api.service';
       <div class="hero-orb orb-teal"></div>
 
       <div class="hero-content">
-        <!-- <div class="hero-eyebrow">
+        <div class="hero-eyebrow">
           <span class="eyebrow-dot"></span>
           Chuka University · Tharaka Nithi, Kenya
-        </div> -->
+        </div>
         <h1 class="hero-heading">
           ESIC<br>
           <span class="heading-gold">STEM LAB</span>
@@ -346,14 +396,14 @@ import { ApiService } from '../../core/services/api.service';
           empowering Africa's next generation of builders, thinkers, and innovators.
         </p>
         <div class="hero-btns">
-          <button class="btn-white">
-            <span class="material-icons-outlined text-base">explore</span>
-            Explore our center
-          </button>
-          <button class="btn-ghost">
-            <span class="material-icons-outlined text-base">location_on</span>
-            Visit us
-          </button>
+          <a routerLink="/contact" class="btn-white">
+            <span class="material-icons text-base">explore</span>
+            Explore Our Center
+          </a>
+          <a routerLink="/contact" class="btn-ghost">
+            <span class="material-icons text-base">location_on</span>
+            Visit Us
+          </a>
         </div>
         <div class="hero-stats">
           @for (s of stats; track s.label) {
@@ -380,9 +430,9 @@ import { ApiService } from '../../core/services/api.service';
                          bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full mb-4">
               Who We Are
             </span>
-            <h2 class="text-4xl lg:text-5xl font-black text-[#001e5c] leading-tight mb-5">About ESIC</h2>
+            <h2 class="text-4xl lg:text-5xl font-black text-[#001a5e] leading-tight mb-5">About ESIC</h2>
             <p class="text-slate-600 text-base leading-relaxed mb-4">
-              The Electronics &amp; Software Innovation Center (ESIC) is a research, design, and
+              The <strong>Electronics &amp; Software Innovation Center (ESIC)</strong> is a research, design, and
               manufacturing company dedicated to advancing STEM education through innovative
               educational technologies.
             </p>
@@ -392,9 +442,9 @@ import { ApiService } from '../../core/services/api.service';
               experimentation.
             </p>
             <p class="text-slate-600 text-base leading-relaxed">
-              Our interdisciplinary expertise spans electronics, software engineering, robotics,
+              Our interdisciplinary expertise spans <strong>electronics, software engineering, robotics,
               automation, artificial intelligence, renewable energy, embedded systems, and
-              engineering education.
+              engineering education.</strong>
             </p>
           </div>
 
@@ -403,7 +453,7 @@ import { ApiService } from '../../core/services/api.service';
             <div class="grid grid-cols-2 gap-3">
               @for (area of expertiseAreas; track area.label) {
                 <div class="expertise-chip flex items-center gap-2.5 bg-white border border-[#e2e8f7] rounded-xl px-4 py-3">
-                  <span class="material-icons-outlined text-[#003399] text-lg">{{ area.icon }}</span>
+                  <span class="material-icons text-[#001a5e] text-lg">{{ area.icon }}</span>
                   <span class="text-[13px] font-bold text-[#173b78]">{{ area.label }}</span>
                 </div>
               }
@@ -414,20 +464,20 @@ import { ApiService } from '../../core/services/api.service';
       </div>
     </section>
 
-    <!-- ══ MISSION — split layout, image slides from LEFT ══ -->
+    <!-- ══ MISSION — split layout ══ -->
     <section class="py-20 px-4 lg:px-8" style="background: linear-gradient(to bottom, #f8fafc, #fff)">
       <div class="max-w-7xl mx-auto">
 
-        <!-- Section header -->
         <div class="text-center mb-16 reveal-up" #revealRef>
           <span class="inline-block text-[11px] font-bold tracking-widest uppercase
                        bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full mb-3">
             Our Purpose
           </span>
-          <h2 class="text-4xl lg:text-5xl font-black text-[#001e5c] leading-tight mb-3">Our Mission</h2>
+          <h2 class="text-4xl lg:text-5xl font-black text-[#001a5e] leading-tight mb-3">Our Mission</h2>
           <p class="text-slate-500 text-base max-w-xl mx-auto leading-relaxed">
             Empowering the next generation of innovators through quality STEM education
           </p>
+          <div class="divider-gradient"></div>
         </div>
 
         <!-- Three split rows -->
@@ -435,13 +485,12 @@ import { ApiService } from '../../core/services/api.service';
           <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-20 last:mb-0"
                [class.lg:flex-row-reverse]="i % 2 === 1">
 
-            <!-- Image — alternates slide direction -->
             <div [class]="i % 2 === 0 ? 'reveal-left' : 'reveal-right'" #revealRef>
               <div class="split-img">
                 <img [src]="card.image" [alt]="card.title" class="h-[400px] w-full object-cover">
                 <div class="split-img-badge">
                   <div class="split-img-badge-icon" [style.background]="card.badgeIconBg">
-                    <span class="material-icons-outlined text-sm" [style.color]="card.badgeIconColor">
+                    <span class="material-icons text-sm" [style.color]="card.badgeIconColor">
                       {{ card.badgeIcon }}
                     </span>
                   </div>
@@ -453,8 +502,7 @@ import { ApiService } from '../../core/services/api.service';
               </div>
             </div>
 
-            <!-- Text — always fades up, but on the opposite col -->
-            <div [class]="i % 2 === 1 ? 'lg:order-first' : ''" >
+            <div [class]="i % 2 === 1 ? 'lg:order-first' : ''">
               <div class="reveal-up" #revealRef>
                 <div class="inline-block text-[10px] font-bold tracking-widest uppercase
                             px-3 py-1 rounded-full mb-4"
@@ -462,12 +510,12 @@ import { ApiService } from '../../core/services/api.service';
                      [style.color]="card.eyebrowColor">
                   {{ card.tag }}
                 </div>
-                <h3 class="text-3xl font-black text-[#001e5c] mb-4 leading-tight">{{ card.title }}</h3>
+                <h3 class="text-3xl font-black text-[#001a5e] mb-4 leading-tight">{{ card.title }}</h3>
                 <p class="text-slate-600 text-base leading-relaxed mb-5">{{ card.body }}</p>
                 <ul class="space-y-2.5">
                   @for (pt of card.points; track pt) {
                     <li class="flex items-start gap-3 text-[14px] text-slate-600 reveal-up-child" #revealRef>
-                      <span class="material-icons-outlined text-sm mt-0.5 flex-shrink-0"
+                      <span class="material-icons text-sm mt-0.5 flex-shrink-0"
                             [style.color]="card.eyebrowColor">check_circle</span>
                       {{ pt }}
                     </li>
@@ -479,14 +527,13 @@ import { ApiService } from '../../core/services/api.service';
           </div>
         }
 
-        <!-- Full-width mission statement -->
         <div class="reveal-up mt-4" #revealRef>
           <div class="bg-white rounded-2xl border border-blue-100 p-8 lg:p-10
                       shadow-[0_4px_24px_rgba(0,30,92,.06)]">
             <p class="text-slate-700 text-base lg:text-lg leading-relaxed">
               To accelerate experiential STEM learning by designing innovative educational equipment,
               digital learning resources, and engineering solutions that make science and technology
-              accessible to every learner. Through our <span class="text-blue-700 font-bold">ESIC</span>,
+              accessible to every learner. Through our <span class="text-[#001a5e] font-bold">ESIC</span>,
               we bridge the gap between theoretical knowledge and practical application — one experiment,
               one project, one builder at a time.
             </p>
@@ -496,7 +543,7 @@ import { ApiService } from '../../core/services/api.service';
       </div>
     </section>
 
-    <!-- ══ VISION — split layout, images slide from RIGHT ══ -->
+    <!-- ══ VISION ══ -->
     <section class="py-20 px-4 lg:px-8 bg-white">
       <div class="max-w-7xl mx-auto">
 
@@ -505,22 +552,22 @@ import { ApiService } from '../../core/services/api.service';
                        bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full mb-3">
             Future Forward
           </span>
-          <h2 class="text-4xl lg:text-5xl font-black text-[#001e5c] leading-tight mb-3">Our Vision</h2>
+          <h2 class="text-4xl lg:text-5xl font-black text-[#001a5e] leading-tight mb-3">Our Vision</h2>
           <p class="text-slate-500 text-base max-w-xl mx-auto leading-relaxed">
             Building a future where African innovation leads the world
           </p>
+          <div class="divider-gradient"></div>
         </div>
 
         @for (card of visionCards; track card.title; let i = $index) {
           <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-20 last:mb-0">
 
-            <!-- Vision images slide from RIGHT, alternating order -->
             <div [class]="i % 2 === 0 ? 'lg:order-last reveal-right' : 'reveal-left'" #revealRef>
               <div class="split-img">
                 <img [src]="card.image" [alt]="card.title" class="h-[400px] w-full object-cover">
                 <div class="split-img-badge">
                   <div class="split-img-badge-icon" [style.background]="card.badgeIconBg">
-                    <span class="material-icons-outlined text-sm" [style.color]="card.badgeIconColor">
+                    <span class="material-icons text-sm" [style.color]="card.badgeIconColor">
                       {{ card.badgeIcon }}
                     </span>
                   </div>
@@ -532,7 +579,6 @@ import { ApiService } from '../../core/services/api.service';
               </div>
             </div>
 
-            <!-- Text -->
             <div [class]="i % 2 === 0 ? '' : 'lg:order-last'">
               <div class="reveal-up" #revealRef>
                 <div class="inline-block text-[10px] font-bold tracking-widest uppercase
@@ -541,12 +587,12 @@ import { ApiService } from '../../core/services/api.service';
                      [style.color]="card.eyebrowColor">
                   {{ card.tag }}
                 </div>
-                <h3 class="text-3xl font-black text-[#001e5c] mb-4 leading-tight">{{ card.title }}</h3>
+                <h3 class="text-3xl font-black text-[#001a5e] mb-4 leading-tight">{{ card.title }}</h3>
                 <p class="text-slate-600 text-base leading-relaxed mb-5">{{ card.body }}</p>
                 <ul class="space-y-2.5">
                   @for (pt of card.points; track pt) {
                     <li class="flex items-start gap-3 text-[14px] text-slate-600 reveal-up-child" #revealRef>
-                      <span class="material-icons-outlined text-sm mt-0.5 flex-shrink-0"
+                      <span class="material-icons text-sm mt-0.5 flex-shrink-0"
                             [style.color]="card.eyebrowColor">check_circle</span>
                       {{ pt }}
                     </li>
@@ -562,9 +608,9 @@ import { ApiService } from '../../core/services/api.service';
           <div class="bg-slate-50 rounded-2xl border border-blue-100 p-8 lg:p-10
                       shadow-[0_4px_24px_rgba(0,30,92,.05)]">
             <p class="text-slate-700 text-base lg:text-lg leading-relaxed">
-              To become Africa's leading developer of innovative STEM learning technologies that
+              To become <strong>Africa's leading developer of innovative STEM learning technologies</strong> that
               inspire the next generation of scientists, engineers, inventors, and entrepreneurs. Our
-              <span class="text-blue-700 font-bold">ESIC</span> serves as a hub for cutting-edge research
+              <span class="text-[#001a5e] font-bold">ESIC</span> serves as a hub for cutting-edge research
               and technological advancement that positions Kenya at the forefront of African innovation.
             </p>
           </div>
@@ -581,7 +627,7 @@ import { ApiService } from '../../core/services/api.service';
 
         <div class="text-center mb-12 reveal-up" #revealRef>
           <span class="inline-block text-[11px] font-bold tracking-widest uppercase
-                       bg-emerald-500/20 text-emerald-300 px-4 py-1.5 rounded-full mb-3 border border-emerald-500/25">
+                       bg-[#fbd01d]/20 text-[#fbd01d] px-4 py-1.5 rounded-full mb-3 border border-[#fbd01d]/25">
             What Drives Us
           </span>
           <h2 class="text-3xl lg:text-4xl font-black text-white mb-2">Core Values</h2>
@@ -592,7 +638,7 @@ import { ApiService } from '../../core/services/api.service';
           @for (value of coreValues; track value.label; let i = $index) {
             <div class="obj-card reveal-up-child" #revealRef [attr.data-index]="i">
               <div class="obj-check-wrap flex-shrink-0">
-                <span class="material-icons-outlined text-white text-base">{{ value.icon }}</span>
+                <span class="material-icons text-white text-base">{{ value.icon }}</span>
               </div>
               <span class="text-white/85 text-[13px] font-bold leading-relaxed">{{ value.label }}</span>
             </div>
@@ -611,7 +657,7 @@ import { ApiService } from '../../core/services/api.service';
                        bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full mb-3">
             Meet the Team
           </span>
-          <h2 class="text-3xl lg:text-4xl font-black text-[#001e5c] mb-2">Our Team</h2>
+          <h2 class="text-3xl lg:text-4xl font-black text-[#001a5e] mb-2">Our Team</h2>
           <p class="text-slate-500 text-sm">Passionate innovators driving STEM education forward at Chuka University</p>
         </div>
 
@@ -626,19 +672,19 @@ import { ApiService } from '../../core/services/api.service';
                         <img [src]="member.avatarUrl" [alt]="member.name"
                              class="w-full h-full rounded-full object-cover">
                       } @else {
-                        <span class="material-icons-outlined text-[#2563eb] text-4xl">person</span>
+                        <span class="material-icons text-[#001a5e] text-4xl">person</span>
                       }
                     </div>
                   </div>
-                  <div class="text-[14px] font-black text-[#001e5c] mb-0.5">{{ member.name }}</div>
-                  <div class="text-[11px] font-bold text-blue-600 mb-3">{{ member.title }}</div>
+                  <div class="text-[14px] font-black text-[#001a5e] mb-0.5">{{ member.name }}</div>
+                  <div class="text-[11px] font-bold text-[#fbd01d] mb-3">{{ member.title }}</div>
                   <p class="text-[11px] text-slate-500 leading-relaxed mb-3 line-clamp-2">{{ member.bio }}</p>
                   <div class="flex justify-center gap-2">
                     <button class="member-btn" title="Profile">
-                      <span class="material-icons-outlined text-slate-500 text-sm">link</span>
+                      <span class="material-icons text-slate-500 text-sm">link</span>
                     </button>
                     <button class="member-btn" title="Email">
-                      <span class="material-icons-outlined text-slate-500 text-sm">email</span>
+                      <span class="material-icons text-slate-500 text-sm">email</span>
                     </button>
                   </div>
                 </div>
@@ -648,12 +694,38 @@ import { ApiService } from '../../core/services/api.service';
         } @else {
           <div class="reveal-up text-center py-16 bg-white rounded-2xl border border-[#e8edf8]" #revealRef>
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 mb-4">
-              <span class="material-icons-outlined text-blue-500 text-4xl">people</span>
+              <span class="material-icons text-blue-500 text-4xl">people</span>
             </div>
             <p class="text-slate-400 text-sm">Team information coming soon.</p>
           </div>
         }
 
+      </div>
+    </section>
+
+    <!-- ══ ESIC VALUES SECTION ══ -->
+    <section class="py-20 px-4 bg-gradient-to-br from-[#001a5e] via-[#012a8a] to-[#094ed3] border-y-4 border-[#fbd01d]">
+      <div class="max-w-7xl mx-auto text-center">
+        <div class="inline-block text-[11px] font-bold tracking-widest uppercase
+                     bg-[#fbd01d]/20 text-[#fbd01d] px-4 py-1.5 rounded-full mb-3 border border-[#fbd01d]/25">
+          ESIC Values
+        </div>
+        <h2 class="text-3xl lg:text-4xl font-black text-white mb-4">What We Stand For</h2>
+        <p class="text-white/60 text-sm max-w-2xl mx-auto mb-10">
+          Our values guide everything we do — from product design to community engagement
+        </p>
+
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+          @for (item of esicValues; track item.title) {
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#fbd01d]/50 transition-all duration-300 group">
+              <div class="text-4xl mb-3">{{ item.icon }}</div>
+              <h3 class="text-white font-bold text-[15px] mb-2 group-hover:text-[#fbd01d] transition-colors">
+                {{ item.title }}
+              </h3>
+              <p class="text-white/50 text-[13px] leading-relaxed">{{ item.description }}</p>
+            </div>
+          }
+        </div>
       </div>
     </section>
 
@@ -669,14 +741,14 @@ import { ApiService } from '../../core/services/api.service';
           research facility in Tharaka Nithi County.
         </p>
         <div class="flex justify-center flex-wrap gap-3">
-          <button class="btn-white">
-            <span class="material-icons-outlined text-base">calendar_month</span>
+          <a routerLink="/contact" class="btn-white">
+            <span class="material-icons text-base">calendar_month</span>
             Schedule a visit
-          </button>
-          <button class="btn-ghost">
-            <span class="material-icons-outlined text-base">info</span>
+          </a>
+          <a routerLink="/contact" class="btn-ghost">
+            <span class="material-icons text-base">info</span>
             Learn more
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -716,6 +788,39 @@ export class AboutComponent implements OnInit, AfterViewInit {
     { icon: 'groups',               label: 'Collaboration'          },
     { icon: 'eco',                  label: 'Sustainability'         },
     { icon: 'auto_stories',         label: 'Continuous Learning'    },
+  ];
+
+  esicValues = [
+    {
+      icon: '',
+      title: 'Excellence in STEM',
+      description: 'We strive for excellence in every product, training, and research initiative.'
+    },
+    {
+      icon: '',
+      title: 'Collaborative Innovation',
+      description: 'We believe in the power of partnerships to drive meaningful change.'
+    },
+    {
+      icon: '',
+      title: 'African Solutions',
+      description: 'We develop technologies that address Africa\'s unique challenges and opportunities.'
+    },
+    {
+      icon: '',
+      title: 'Lifelong Learning',
+      description: 'We are committed to continuous improvement and knowledge sharing.'
+    },
+    {
+      icon: '',
+      title: 'Research Excellence',
+      description: 'We advance STEM education through rigorous research and development.'
+    },
+    {
+      icon: '',
+      title: 'Student-Centered',
+      description: 'Every innovation we create puts students at the heart of learning.'
+    }
   ];
 
   missionCards = [
@@ -818,7 +923,6 @@ export class AboutComponent implements OnInit, AfterViewInit {
         const el = entry.target as HTMLElement;
         const idx = parseInt(el.getAttribute('data-index') || '0');
 
-        // Stagger indexed children (values, team cards, bullet points)
         const delay = idx > 0 ? idx * 70 : 0;
         setTimeout(() => el.classList.add('in'), delay);
         observer.unobserve(el);

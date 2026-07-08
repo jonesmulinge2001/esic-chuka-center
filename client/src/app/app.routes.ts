@@ -17,6 +17,8 @@ export const routes: Routes = [
   { path: 'resources', loadComponent: () => import('./features/resources/resources.component').then(m => m.ResourcesComponent) },
   { path: 'gallery', loadComponent: () => import('./features/gallery/gallery.component').then(m => m.GalleryComponent) },
   { path: 'contact', loadComponent: () => import('./features/contact/contact.component').then(m => m.ContactComponent) },
+  { path: 'partners', loadComponent: () => import('./features/patners/patners.component').then(m => m.PartnersComponent) },
+  { path: 'news', loadComponent: () => import('./features/news/news.component').then(m => m.NewsComponent) },
   {
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.routes').then(m => m.authRoutes),

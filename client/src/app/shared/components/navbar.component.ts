@@ -304,11 +304,12 @@ export class NavbarComponent {
       children: [
         { label: 'All Resources', path: '/resources' },
         { label: 'Gallery',       path: '/gallery' },
+        { label: 'News',          path: '/news' }, 
       ],
     },
     { label: 'ESIC Learn',          path: '/dashboard' },
     { label: 'Projects & Research', path: '/projects' },
-    { label: 'Partners',            path: '/about' },
+    { label: 'Partners',            path: '/partners' },
     { label: 'Contact',             path: '/contact' },
   ];
 }
