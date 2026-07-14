@@ -12,6 +12,17 @@ export const authGuard: CanActivateFn = () => {
 export const adminGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
-  if (auth.isAdmin()) return true;
+  
+  // First check if user is authenticated
+  if (!auth.isAuthenticated()) {
+    return router.createUrlTree(['/auth/login']);
+  }
+  
+  // Then check if user is admin
+  if (auth.isAdmin()) {
+    return true;
+  }
+  
+  // User is authenticated but not admin
   return router.createUrlTree(['/']);
 };

@@ -55,7 +55,17 @@ export class LoginComponent {
     if (!this.email || !this.password) { this.error.set('Please enter email and password.'); return; }
     this.loading.set(true); this.error.set('');
     this.auth.login(this.email, this.password).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: () => {
+        const user = this.auth.user();
+      
+        if (user?.role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
+      
+        this.loading.set(false);
+      },
       error: (e) => { this.error.set(e.error?.message ?? 'Invalid credentials'); this.loading.set(false); },
     });
   }

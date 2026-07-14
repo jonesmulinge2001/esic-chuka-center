@@ -649,7 +649,7 @@ import { ApiService } from '../../core/services/api.service';
     </section>
 
     <!-- ══ TEAM ══ -->
-    <section class="py-20 px-4 bg-[#f8faff]">
+    <!-- <section class="py-20 px-4 bg-[#f8faff]">
       <div class="max-w-7xl mx-auto">
 
         <div class="text-center mb-12 reveal-up" #revealRef>
@@ -701,7 +701,7 @@ import { ApiService } from '../../core/services/api.service';
         }
 
       </div>
-    </section>
+    </section> -->
 
     <!-- ══ ESIC VALUES SECTION ══ -->
     <section class="py-20 px-4 bg-gradient-to-br from-[#001a5e] via-[#012a8a] to-[#094ed3] border-y-4 border-[#fbd01d]">

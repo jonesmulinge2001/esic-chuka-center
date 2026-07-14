@@ -431,7 +431,7 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       color: '#2563eb',
       bg: '#dbeafe',
       count: 12,
-      examples: ['Chuka High School', 'St. Mary\'s', 'Kianyaga High']
+      examples: ['']
     },
     {
       name: 'Universities',
@@ -439,7 +439,7 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       color: '#7c3aed',
       bg: '#ede9fe',
       count: 8,
-      examples: ['Chuka University', 'JKUAT', 'KU']
+      examples: ['Chuka University']
     },
     {
       name: 'TVET Institutions',
@@ -447,7 +447,7 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       color: '#ea580c',
       bg: '#fff7ed',
       count: 10,
-      examples: ['KTTC', 'Kenya School of TVET', 'Kabete National Polytechnic']
+      examples: ['']
     },
     {
       name: 'Government',
@@ -455,7 +455,7 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       color: '#be123c',
       bg: '#ffe4e6',
       count: 6,
-      examples: ['Ministry of Education', 'TVET Authority', 'KICD']
+      examples: ['']
     },
     {
       name: 'Industry',
@@ -463,7 +463,7 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       color: '#0891b2',
       bg: '#cffafe',
       count: 15,
-      examples: ['Safaricom', 'GE Healthcare', 'Microsoft']
+      examples: ['Microsoft']
     },
     {
       name: 'Research Organizations',
@@ -471,7 +471,7 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       color: '#15803d',
       bg: '#dcfce7',
       count: 7,
-      examples: ['KEMRI', 'KALRO', 'ICRAF']
+      examples: ['']
     },
     {
       name: 'Development Partners',
@@ -479,7 +479,7 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       color: '#ca8a04',
       bg: '#fef9c3',
       count: 5,
-      examples: ['UNDP', 'UNESCO', 'World Bank']
+      examples: ['']
     }
   ];
 
@@ -495,17 +495,17 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       description: 'Strategic partner in STEM education and research, hosting ESIC labs and training programs.',
       tags: ['STEM', 'Research', 'Education']
     },
-    {
-      name: 'Ministry of Education',
-      category: 'Government',
-      icon: 'account_balance',
-      iconColor: '#be123c',
-      iconBg: '#ffe4e6',
-      rating: 4.6,
-      projects: 8,
-      description: 'Supporting national STEM education initiatives and curriculum development.',
-      tags: ['Policy', 'Curriculum', 'National']
-    },
+    // {
+    //   name: 'Ministry of Education',
+    //   category: 'Government',
+    //   icon: 'account_balance',
+    //   iconColor: '#be123c',
+    //   iconBg: '#ffe4e6',
+    //   rating: 4.6,
+    //   projects: 8,
+    //   description: 'Supporting national STEM education initiatives and curriculum development.',
+    //   tags: ['Policy', 'Curriculum', 'National']
+    // },
     {
       name: 'Safaricom PLC',
       category: 'Industry',
@@ -517,39 +517,39 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       description: 'Leading technology partner providing connectivity solutions for ESIC\'s digital platforms.',
       tags: ['Technology', 'Connectivity', 'Innovation']
     },
-    {
-      name: 'UNESCO',
-      category: 'Development Partner',
-      icon: 'public',
-      iconColor: '#ca8a04',
-      iconBg: '#fef9c3',
-      rating: 4.7,
-      projects: 6,
-      description: 'Supporting STEM education quality and access initiatives across Kenya.',
-      tags: ['Education', 'SDG', 'Global']
-    },
-    {
-      name: 'JKUAT',
-      category: 'University',
-      icon: 'local_library',
-      iconColor: '#2563eb',
-      iconBg: '#dbeafe',
-      rating: 4.5,
-      projects: 10,
-      description: 'Collaborating on engineering research and student innovation programs.',
-      tags: ['Engineering', 'Research', 'Innovation']
-    },
-    {
-      name: 'KEMRI',
-      category: 'Research Organization',
-      icon: 'science',
-      iconColor: '#15803d',
-      iconBg: '#dcfce7',
-      rating: 4.8,
-      projects: 5,
-      description: 'Partnering on biomedical engineering and health technology research.',
-      tags: ['Biomedical', 'Health', 'Research']
-    }
+    // {
+    //   name: 'UNESCO',
+    //   category: 'Development Partner',
+    //   icon: 'public',
+    //   iconColor: '#ca8a04',
+    //   iconBg: '#fef9c3',
+    //   rating: 4.7,
+    //   projects: 6,
+    //   description: 'Supporting STEM education quality and access initiatives across Kenya.',
+    //   tags: ['Education', 'SDG', 'Global']
+    // },
+    // {
+    //   name: 'JKUAT',
+    //   category: 'University',
+    //   icon: 'local_library',
+    //   iconColor: '#2563eb',
+    //   iconBg: '#dbeafe',
+    //   rating: 4.5,
+    //   projects: 10,
+    //   description: 'Collaborating on engineering research and student innovation programs.',
+    //   tags: ['Engineering', 'Research', 'Innovation']
+    // },
+    // {
+    //   name: 'KEMRI',
+    //   category: 'Research Organization',
+    //   icon: 'science',
+    //   iconColor: '#15803d',
+    //   iconBg: '#dcfce7',
+    //   rating: 4.8,
+    //   projects: 5,
+    //   description: 'Partnering on biomedical engineering and health technology research.',
+    //   tags: ['Biomedical', 'Health', 'Research']
+    // }
   ];
 
   testimonials = [
@@ -567,13 +567,13 @@ export class PartnersComponent implements OnInit, AfterViewInit {
       initials: 'DK',
       avatarBg: 'linear-gradient(135deg, #16a34a, #ea580c)'
     },
-    {
-      name: 'Sarah Wanjiku',
-      role: 'Education Specialist, UNESCO',
-      quote: 'ESIC\'s innovative approach to STEM education aligns perfectly with our vision for quality education in Africa.',
-      initials: 'SW',
-      avatarBg: 'linear-gradient(135deg, #7c3aed, #2563eb)'
-    }
+    // {
+    //   name: 'Sarah Wanjiku',
+    //   role: 'Education Specialist, UNESCO',
+    //   quote: 'ESIC\'s innovative approach to STEM education aligns perfectly with our vision for quality education in Africa.',
+    //   initials: 'SW',
+    //   avatarBg: 'linear-gradient(135deg, #7c3aed, #2563eb)'
+    // }
   ];
 
   partnerBenefits = [

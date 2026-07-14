@@ -11,7 +11,7 @@ export const routes: Routes = [
   { path: 'programs/advanced-stem', loadComponent: () => import('./features/programs/programs-advanced-engineering.component').then(m => m.AdvancedEngineeringComponent) },
   // { path: 'programs/:slug', loadComponent: () => import('./features/programs/program-detail.component').then(m => m.ProgramDetailComponent) },
   { path: 'projects', loadComponent: () => import('./features/projects/projects.component').then(m => m.ProjectsComponent) },
-  { path: 'projects/:slug', loadComponent: () => import('./features/projects/project-detail.component').then(m => m.ProjectDetailComponent) },
+  // { path: 'projects/:slug', loadComponent: () => import('./features/projects/project-detail.component').then(m => m.ProjectDetailComponent) },
   { path: 'events', loadComponent: () => import('./features/events/events.component').then(m => m.EventsComponent) },
   { path: 'events/:slug', loadComponent: () => import('./features/events/event-detail.component').then(m => m.EventDetailComponent) },
   { path: 'resources', loadComponent: () => import('./features/resources/resources.component').then(m => m.ResourcesComponent) },

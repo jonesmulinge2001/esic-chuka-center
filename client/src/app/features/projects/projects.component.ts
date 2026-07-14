@@ -464,7 +464,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       category: 'Artificial Intelligence',
       status: 'completed',
       team: '4 Students',
-      image: '/images/projects/ai-robot.jpg',
+      image: '/images/ai-robot.jpg',
       icon: 'smart_toy',
       technologies: ['Python', 'TensorFlow', 'OpenCV', 'Raspberry Pi']
     },
@@ -476,7 +476,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       category: 'Robotics',
       status: 'completed',
       team: '3 Students',
-      image: '/images/projects/line-follower.jpg',
+      image: '/images/line-follower.jpg',
       icon: 'route',
       technologies: ['Arduino', 'C++', 'PID Control', 'IR Sensors']
     },
@@ -488,7 +488,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       category: 'Smart Agriculture',
       status: 'in-progress',
       team: '5 Students',
-      image: '/images/projects/smart-irrigation.jpg',
+      image: '/images/smart-irrigation.jpg',
       icon: 'sprinkler',
       technologies: ['IoT', 'NodeMCU', 'Sensors', 'Cloud Computing']
     },
@@ -500,7 +500,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       category: 'Renewable Energy',
       status: 'completed',
       team: '3 Students',
-      image: '/images/projects/solar-tracker.jpg',
+      image: '/images/solar-tracker.jpg',
       icon: 'solar_power',
       technologies: ['Arduino', 'Servo Motors', 'LDR Sensors', 'Solar Panels']
     },
@@ -512,94 +512,94 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       category: 'Industrial Automation',
       status: 'prototype',
       team: '4 Students',
-      image: '/images/projects/plc-automation.jpg',
+      image: '/images/plc-automation.jpg',
       icon: 'precision_manufacturing',
       technologies: ['PLC', 'Ladder Logic', 'SCADA', 'Industrial Sensors']
     },
-    {
-      id: 6,
-      slug: 'drone-applications',
-      title: 'Drone Applications',
-      description: 'Research on drone applications for surveillance, delivery, and agricultural monitoring',
-      category: 'Robotics',
-      status: 'in-progress',
-      team: '6 Students',
-      image: '/images/projects/drone.jpg',
-      icon: 'flight',
-      technologies: ['UAV', 'GPS', 'Computer Vision', 'Telemetry']
-    },
-    {
-      id: 7,
-      slug: 'smart-home-system',
-      title: 'Smart Home System',
-      description: 'Complete home automation system with voice control, energy monitoring, and security features',
-      category: 'Internet of Things',
-      status: 'completed',
-      team: '3 Students',
-      image: '/images/projects/smart-home.jpg',
-      icon: 'home_automation',
-      technologies: ['ESP32', 'MQTT', 'Node-RED', 'AI Voice Control']
-    },
-    {
-      id: 8,
-      slug: 'weather-monitoring-station',
-      title: 'Weather Monitoring Station',
-      description: 'Automated weather station collecting and analyzing real-time meteorological data',
-      category: 'IoT & Data Science',
-      status: 'completed',
-      team: '2 Students',
-      image: '/images/projects/weather-station.jpg',
-      icon: 'cloud',
-      technologies: ['Arduino', 'Sensors', 'Data Logging', 'Data Visualization']
-    },
-    {
-      id: 9,
-      slug: 'iot-energy-meter',
-      title: 'IoT Energy Meter',
-      description: 'Smart energy monitoring system for real-time electricity consumption tracking and analysis',
-      category: 'Internet of Things',
-      status: 'prototype',
-      team: '4 Students',
-      image: '/images/projects/energy-meter.jpg',
-      icon: 'bolt',
-      technologies: ['IoT', 'ESP8266', 'Current Sensors', 'Cloud Analytics']
-    },
-    {
-      id: 10,
-      slug: 'reinforcement-learning-cartpole',
-      title: 'Reinforcement Learning CartPole',
-      description: 'Implementation of reinforcement learning algorithms to solve the classic CartPole balancing problem',
-      category: 'Machine Learning',
-      status: 'completed',
-      team: '2 Students',
-      image: '/images/projects/cartpole.jpg',
-      icon: 'model_training',
-      technologies: ['Python', 'OpenAI Gym', 'Deep Learning', 'Reinforcement Learning']
-    },
-    {
-      id: 11,
-      slug: 'digital-control-experiments',
-      title: 'Digital Control Experiments',
-      description: 'Research on digital control systems for temperature, speed, and position control applications',
-      category: 'Control Systems',
-      status: 'completed',
-      team: '3 Students',
-      image: '/images/projects/digital-control.jpg',
-      icon: 'settings',
-      technologies: ['MATLAB', 'Simulink', 'Arduino', 'PID Control']
-    },
-    {
-      id: 12,
-      slug: 'ev-charging-demonstrator',
-      title: 'Electric Vehicle Charging Demonstrator',
-      description: 'Prototype EV charging station with smart grid integration and load management',
-      category: 'Power Electronics',
-      status: 'prototype',
-      team: '5 Students',
-      image: '/images/projects/ev-charging.jpg',
-      icon: 'electric_car',
-      technologies: ['Power Electronics', 'EV', 'Smart Grid', 'BMS']
-    }
+    // {
+    //   id: 6,
+    //   slug: 'drone-applications',
+    //   title: 'Drone Applications',
+    //   description: 'Research on drone applications for surveillance, delivery, and agricultural monitoring',
+    //   category: 'Robotics',
+    //   status: 'in-progress',
+    //   team: '6 Students',
+    //   image: '/images/projects/drone.jpg',
+    //   icon: 'flight',
+    //   technologies: ['UAV', 'GPS', 'Computer Vision', 'Telemetry']
+    // },
+    // {
+    //   id: 7,
+    //   slug: 'smart-home-system',
+    //   title: 'Smart Home System',
+    //   description: 'Complete home automation system with voice control, energy monitoring, and security features',
+    //   category: 'Internet of Things',
+    //   status: 'completed',
+    //   team: '3 Students',
+    //   image: '/images/projects/smart-home.jpg',
+    //   icon: 'home_automation',
+    //   technologies: ['ESP32', 'MQTT', 'Node-RED', 'AI Voice Control']
+    // },
+    // {
+    //   id: 8,
+    //   slug: 'weather-monitoring-station',
+    //   title: 'Weather Monitoring Station',
+    //   description: 'Automated weather station collecting and analyzing real-time meteorological data',
+    //   category: 'IoT & Data Science',
+    //   status: 'completed',
+    //   team: '2 Students',
+    //   image: '/images/projects/weather-station.jpg',
+    //   icon: 'cloud',
+    //   technologies: ['Arduino', 'Sensors', 'Data Logging', 'Data Visualization']
+    // },
+    // {
+    //   id: 9,
+    //   slug: 'iot-energy-meter',
+    //   title: 'IoT Energy Meter',
+    //   description: 'Smart energy monitoring system for real-time electricity consumption tracking and analysis',
+    //   category: 'Internet of Things',
+    //   status: 'prototype',
+    //   team: '4 Students',
+    //   image: '/images/projects/energy-meter.jpg',
+    //   icon: 'bolt',
+    //   technologies: ['IoT', 'ESP8266', 'Current Sensors', 'Cloud Analytics']
+    // },
+    // {
+    //   id: 10,
+    //   slug: 'reinforcement-learning-cartpole',
+    //   title: 'Reinforcement Learning CartPole',
+    //   description: 'Implementation of reinforcement learning algorithms to solve the classic CartPole balancing problem',
+    //   category: 'Machine Learning',
+    //   status: 'completed',
+    //   team: '2 Students',
+    //   image: '/images/projects/cartpole.jpg',
+    //   icon: 'model_training',
+    //   technologies: ['Python', 'OpenAI Gym', 'Deep Learning', 'Reinforcement Learning']
+    // },
+    // {
+    //   id: 11,
+    //   slug: 'digital-control-experiments',
+    //   title: 'Digital Control Experiments',
+    //   description: 'Research on digital control systems for temperature, speed, and position control applications',
+    //   category: 'Control Systems',
+    //   status: 'completed',
+    //   team: '3 Students',
+    //   image: '/images/projects/digital-control.jpg',
+    //   icon: 'settings',
+    //   technologies: ['MATLAB', 'Simulink', 'Arduino', 'PID Control']
+    // },
+    // {
+    //   id: 12,
+    //   slug: 'ev-charging-demonstrator',
+    //   title: 'Electric Vehicle Charging Demonstrator',
+    //   description: 'Prototype EV charging station with smart grid integration and load management',
+    //   category: 'Power Electronics',
+    //   status: 'prototype',
+    //   team: '5 Students',
+    //   image: '/images/projects/ev-charging.jpg',
+    //   icon: 'electric_car',
+    //   technologies: ['Power Electronics', 'EV', 'Smart Grid', 'BMS']
+    // }
   ];
 
   // All projects (including API data merged with featured)
