@@ -195,18 +195,17 @@ import { AuthService } from '../../core/services/auth.service';
           </nav>
 
           <!-- ── Right Actions ── -->
-          <div class="flex items-center gap-1.5">
-            <!-- Search -->
-            <!-- <button
+          <!-- <div class="flex items-center gap-1.5">
+            
+            <button
               class="icon-btn hidden lg:flex w-8 h-8 items-center justify-center
                            rounded-[7px] text-slate-500 hover:bg-slate-100
                            hover:text-[#003399] border-none bg-transparent cursor-pointer"
             >
               <span class="material-icons text-[18px]">search</span>
-            </button> -->
+            </button>
 
             @if (auth.isAuthenticated()) {
-            <!-- User -->
             <a
               routerLink="/dashboard"
               (click)="scrollToTop()"
@@ -261,7 +260,6 @@ import { AuthService } from '../../core/services/auth.service';
             </a>
             }
 
-            <!-- Mobile burger -->
             <button
               (click)="menuOpen.set(!menuOpen())"
               class="icon-btn lg:hidden w-8 h-8 flex items-center justify-center
@@ -272,7 +270,7 @@ import { AuthService } from '../../core/services/auth.service';
                 {{ menuOpen() ? 'close' : 'menu' }}
               </span>
             </button>
-          </div>
+          </div> -->
         </div>
 
         <!-- ── Mobile Menu ── -->
@@ -308,7 +306,7 @@ import { AuthService } from '../../core/services/auth.service';
             {{ child.label }}
           </a>
           } } }
-          <div
+          <!-- <div
             class="border-t border-slate-100 mt-2 pt-2.5 flex flex-col gap-1.5 px-3.5"
           >
             @if (auth.isAuthenticated()) {
@@ -348,7 +346,7 @@ import { AuthService } from '../../core/services/auth.service';
               Join ESIC
             </a>
             }
-          </div>
+          </div> -->
         </nav>
         }
       </div>
@@ -387,10 +385,10 @@ export class NavbarComponent {
       children: [
         { label: 'All Resources', path: '/resources' },
         { label: 'Gallery', path: '/gallery' },
-        { label: 'News', path: '/news' },
+        // { label: 'News', path: '/news' },
       ],
     },
-    { label: 'ESIC Learn', path: '/dashboard' },
+    // { label: 'ESIC Learn', path: '/dashboard' },
     { label: 'Projects & Research', path: '/projects' },
     { label: 'Partners', path: '/partners' },
     { label: 'Contact', path: '/contact' },
