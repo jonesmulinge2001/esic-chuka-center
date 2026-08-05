@@ -108,13 +108,6 @@ ng serve                  # start on :4200
 - **API Docs (Swagger):** http://localhost:3000/api/docs
 - **API Base URL:** http://localhost:3000/api/v1
 
-## Admin Credentials (after seeding)
-
-| Field | Value |
-|-------|-------|
-| Email | admin@esic.chuka.ac.ke |
-| Password | Admin@123! |
-
 ## Production Deployment
 
 ```bash
@@ -196,13 +189,4 @@ esic-platform/
 └── .env.example
 ```
 
-## Phase 2 Roadmap
-
-- [ ] Online LMS with course builder
-- [ ] Digital certificate generation
-- [ ] Research publication repository
-- [ ] M-Pesa payment integration
-- [ ] File upload (Cloudinary / S3)
-- [ ] Email notifications (Nodemailer / Africa's Talking)
-- [ ] Analytics dashboard
 ```
