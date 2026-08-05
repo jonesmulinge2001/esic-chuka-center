@@ -182,7 +182,7 @@ import { ApiService } from '../../core/services/api.service';
             }
 
             <!-- Social Media -->
-            <div class="bg-white rounded-2xl p-5 border border-slate-200 contact-card">
+            <!-- <div class="bg-white rounded-2xl p-5 border border-slate-200 contact-card">
               <h4 class="text-[13px] font-bold text-slate-900 mb-3">Connect With Us</h4>
               <div class="flex gap-3">
                 @for (social of socialLinks; track social.platform) {
@@ -196,7 +196,7 @@ import { ApiService } from '../../core/services/api.service';
                   </a>
                 }
               </div>
-            </div>
+            </div> -->
 
             <!-- Quick Response Time -->
             <div class="bg-gradient-to-r from-[#001a5e] to-[#094ed3] rounded-2xl p-5 text-white">
