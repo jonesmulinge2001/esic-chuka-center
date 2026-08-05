@@ -541,30 +541,6 @@ import { ApiService } from '../../core/services/api.service';
         </div>
       </section>
     }
-
-    <!-- ══════════════════════════════════════════════════════
-         FINAL CTA
-    ══════════════════════════════════════════════════════ -->
-    <section class="bg-cta-gradient py-16 text-center">
-      <div class="max-w-2xl mx-auto px-4">
-        <span class="inline-block text-yellow-400 text-[26px] mb-3 animate-star-spin material-icons-outlined">stars</span>
-        <h2 class="text-3xl lg:text-4xl font-black text-white mb-3">
-          Ready to Innovate with ESIC?
-        </h2>
-        <p class="text-blue-200 text-sm mb-8 leading-relaxed">
-          Join a growing community of STEM innovators, educators, and researchers at Chuka University.
-          Get access to programs, resources, and events — built for Kenya's learners.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a routerLink="/auth/register" class="inline-block bg-yellow-400 text-[#001e5c] font-extrabold text-[14px] px-9 py-3.5 rounded-xl no-underline shadow-[0_4px_16px_rgba(245,197,24,.35)] transition-all duration-200 hover:bg-yellow-300 hover:-translate-y-0.5">
-            Join ESIC — It's Free
-          </a>
-          <a routerLink="/contact" class="inline-block border-2 border-white/35 text-white font-bold text-[14px] px-9 py-3.5 rounded-xl no-underline transition-all duration-200 hover:bg-white/10 hover:-translate-y-0.5">
-            Get in Touch
-          </a>
-        </div>
-      </div>
-    </section>
   `,
 })
 export class HomeComponent implements OnInit, AfterViewInit {
