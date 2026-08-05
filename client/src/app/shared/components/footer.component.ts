@@ -85,10 +85,8 @@ import { RouterLink } from '@angular/router';
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-blue-400">
           <p>© {{ year }} ESIC STEM LAB, Chuka University. All rights reserved.</p>
           <div class="flex items-center gap-4">
-            <a routerLink="/about" class="hover:text-white transition-colors">About</a>
-            <a routerLink="/contact" class="hover:text-white transition-colors">Contact</a>
             <span class="text-blue-600">|</span>
-            <span>Built with Angular &amp; NestJS</span>
+            <span>Developed By AdvaTech </span>
           </div>
         </div>
       </div>
